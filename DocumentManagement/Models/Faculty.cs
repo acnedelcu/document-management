@@ -13,7 +13,7 @@ namespace DocumentManagement.Models
 
         public List<StudyProgram> StudyPrograms { get; set; }
 
-        public List<Student> Students { get; set; }
+        public List<ApplicationUser> ApplicationUsers { get; set; }
 
     }
 }

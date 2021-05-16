@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Models
 {
-    public class AppDbContext: IdentityDbContext<IdentityUser>
+    public class AppDbContext: IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -23,6 +23,6 @@ namespace DocumentManagement.Models
 
         public DbSet<Group> Groups { get; set; }
 
-        public DbSet<Student> Students { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

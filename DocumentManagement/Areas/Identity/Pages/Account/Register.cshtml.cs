@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using DocumentManagement.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,14 +20,14 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -45,6 +46,33 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Nume")]
+            public string LastName { get; set; }
+
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Initiala Tatalui")]
+            public string DadFirstNameInitial { get; set; }
+
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Prenume")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Data nasterii")]
+            public DateTime Birthdate { get; set; }
+
+            [Required]
+            [EmailAddress]
+            [Display(Name = "CNP")]
+            public string SocialSecurityNumber { get; set; }
+
+
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -74,7 +102,9 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser {LastName = Input.FirstName, DadFirstNameInitial = Input.DadFirstNameInitial,
+                    FirtstName = Input.FirstName, BirthDate = Input.Birthdate, SocialSecurityNumber = Input.SocialSecurityNumber,
+                    UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

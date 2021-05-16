@@ -32,7 +32,7 @@ namespace DocumentManagement
             services.AddControllersWithViews();
 
             services.AddRazorPages(); //needed for the scaffolded items added by auth
-            services.AddDefaultIdentity<Student>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
