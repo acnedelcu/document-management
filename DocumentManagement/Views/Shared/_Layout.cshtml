@@ -14,8 +14,37 @@
     <link rel="stylesheet" href="~/styles/navbar.css"/>
 </head>
 <body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        @*<div class="container">*@
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a href="#" class="nav-link"><i class="fa fa-fw fa-home"></i>Acasă</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="#" class="nav-link"><i class="fa fa-folder-open"></i>Documente disponibile</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="#" class="nav-link active"><i class="fa fa-file-alt"></i>Cereri documente</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="#" class="nav-link active"><i class="fa fa-qrcode"></i>Management QR</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="#" class="nav-link active"><i class="fas fa-file-upload"></i>Încărcare documente</a>
+                </li>
+                <partial name="_LoginPartial" />
+            </ul>
+        </div>
+        @*</div>*@
+    </nav>
     <div>
         @RenderBody()
     </div>
+    @RenderSection("Scripts", required: false);
 </body>
 </html>
