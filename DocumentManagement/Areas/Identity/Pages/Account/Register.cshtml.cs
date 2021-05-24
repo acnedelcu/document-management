@@ -47,27 +47,22 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
             [Display(Name = "Nume")]
             public string LastName { get; set; }
 
             [Required]
-            [EmailAddress]
             [Display(Name = "Initiala Tatalui")]
             public string DadFirstNameInitial { get; set; }
 
             [Required]
-            [EmailAddress]
             [Display(Name = "Prenume")]
             public string FirstName { get; set; }
 
             [Required]
-            [EmailAddress]
             [Display(Name = "Data nasterii")]
             public DateTime Birthdate { get; set; }
 
             [Required]
-            [EmailAddress]
             [Display(Name = "CNP")]
             public string SocialSecurityNumber { get; set; }
 
