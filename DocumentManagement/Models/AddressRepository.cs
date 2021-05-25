@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Models
 {
-    public class AddressRepository
+    public class AddressRepository: IAddressRepository
     {
         private readonly AppDbContext appDbContext;
 

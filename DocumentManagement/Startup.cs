@@ -35,6 +35,7 @@ namespace DocumentManagement
             services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
