@@ -7,6 +7,6 @@ namespace DocumentManagement.Models
 {
     public class IAddressRepository
     {
-        public IEnumerable<Address> Addresses { get; }
+        public IEnumerable<Address> AllAddresses { get; }
     }
 }

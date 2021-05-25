@@ -7,6 +7,6 @@ namespace DocumentManagement.Models
 {
     public class IFacultyRepository
     {
-        public IEnumerable<Faculty> Faculties { get; }
+        public IEnumerable<Faculty> AllFaculties { get; }
     }
 }
