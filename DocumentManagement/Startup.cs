@@ -29,7 +29,7 @@ namespace DocumentManagement
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnectionString")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             services.AddRazorPages(); //needed for the scaffolded items added by auth
             services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
