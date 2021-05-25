@@ -36,6 +36,7 @@ namespace DocumentManagement
 
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IFacultyRepository, FacultyRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
