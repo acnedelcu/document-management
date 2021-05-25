@@ -1,1 +1,6 @@
-﻿<h1>Upload a document</h1>
+﻿@model UploadViewModel
+
+@foreach(var group in Model.Groups) { 
+    <h1>@group.GroupName</h1>
+}
+<h1>Upload a document</h1>

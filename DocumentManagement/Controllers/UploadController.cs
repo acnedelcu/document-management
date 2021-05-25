@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Models;
+using DocumentManagement.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,15 @@ namespace DocumentManagement.Controllers
 {
     public class UploadController : Controller
     {
+        private readonly IGroupRepository groupRepository;
+        public UploadController(IGroupRepository groupRepository)
+        {
+            this.groupRepository = groupRepository;
+        }
         public ViewResult Send()
         {
-            return View();
+            var uploadViewModel = new UploadViewModel { Groups = this.groupRepository.AllGroups };
+            return View(uploadViewModel);
         }
     }
 }
