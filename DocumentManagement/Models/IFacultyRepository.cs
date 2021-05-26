@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Models
 {
-    public class IFacultyRepository
+    public interface IFacultyRepository
     {
         public IEnumerable<Faculty> AllFaculties { get; }
     }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Models
 {
-    interface IStudyProgramRepository
+    public interface IStudyProgramRepository
     {
         public IEnumerable<StudyProgram> AllStudyPrograms { get; }
     }

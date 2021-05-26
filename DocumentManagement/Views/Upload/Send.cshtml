@@ -1,6 +1,60 @@
 ﻿@model UploadViewModel
 
-@foreach(var group in Model.Groups) { 
-    <h1>@group.GroupName</h1>
-}
-<h1>Upload a document</h1>
+<div id="form">
+    <div class="dx-fieldset">
+        <div class="dx-field">
+            <div class="dx-field-label">Program de studii</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().SelectBox().DataSource(Model.StudyPrograms.Select(sp =>sp.Major)).Placeholder("Alegeti program de studii").ShowClearButton(true))
+            </div>
+        </div>
+    </div>
+
+    <div class="dx-fieldset">
+        <div class="dx-field">
+            <div class="dx-field-label">Grupa</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().SelectBox().DataSource(Model.Groups.Select(gr => gr.GroupName)).Placeholder("Alegeti grupa").ShowClearButton(true))
+            </div>
+        </div>
+    </div>
+
+    <div class="dx-fieldset">
+        <div class="dx-field">
+            <div class="dx-field-label">Nume</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().SelectBox().DataSource(Model.ApplicationUsers.Select(au => au.LastName)).Placeholder("Alegeti nume").ShowClearButton(true))
+            </div>
+        </div>
+    </div>
+
+    <div class="dx-fieldset">
+        <div class="dx-field">
+            <div class="dx-field-label">Prenume</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().SelectBox().DataSource(Model.ApplicationUsers.Select(au => au.FirtstName)).Placeholder("Alegeti prenume").ShowClearButton(true))
+            </div>
+        </div>
+    </div>
+    <div>
+
+    @(Html.DevExtreme().FileUploader()
+        .ID("file-uploader")
+        .ChunkSize(200000)
+        .MaxFileSize(1048576)
+        .Accept("application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, .doc, .docx" +
+            ",application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xls, .xlsx," +
+            ",application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, .ppt, .pptx" +
+            ",text/plain, .txt, application/pdf")
+        .SelectButtonText("Alegeti fisier").UploadButtonText("Incarcati fisier")
+    /*.UploadChunk("uploadChunk")*/
+    )
+
+    @(Html.DevExtreme().Button()
+        .ID("button")
+        .Text("Incarca documente")
+        .Type(ButtonType.Success)
+        .UseSubmitBehavior(true)
+    )
+    </div>
+</div>

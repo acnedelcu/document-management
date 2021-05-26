@@ -9,5 +9,9 @@ namespace DocumentManagement.ViewModels
     public class UploadViewModel
     {
         public IEnumerable<Group> Groups { get; set; }
+
+        public IEnumerable<StudyProgram> StudyPrograms { get; set; } 
+
+        public IEnumerable<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

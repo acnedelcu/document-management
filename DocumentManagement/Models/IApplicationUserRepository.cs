@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Models
 {
-    interface IApplicationUserRepository
+    public interface IApplicationUserRepository
     {
         public IEnumerable<ApplicationUser> AllApplicationUsers { get; }
     }

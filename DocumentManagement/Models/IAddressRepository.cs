@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Models
 {
-    public class IAddressRepository
+    public interface IAddressRepository
     {
         public IEnumerable<Address> AllAddresses { get; }
     }

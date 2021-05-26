@@ -11,13 +11,19 @@ namespace DocumentManagement.Controllers
     public class UploadController : Controller
     {
         private readonly IGroupRepository groupRepository;
-        public UploadController(IGroupRepository groupRepository)
+        private readonly IStudyProgramRepository studyProgramRepository;
+        private readonly IApplicationUserRepository applicationUserRepository;
+        public UploadController(IGroupRepository groupRepository, IStudyProgramRepository studyProgramRepository, IApplicationUserRepository applicationUserRepository)
         {
             this.groupRepository = groupRepository;
+            this.studyProgramRepository = studyProgramRepository;
+            this.applicationUserRepository = applicationUserRepository;
         }
         public ViewResult Send()
         {
-            var uploadViewModel = new UploadViewModel { Groups = this.groupRepository.AllGroups };
+            var uploadViewModel = new UploadViewModel
+            { Groups = this.groupRepository.AllGroups, StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
+            ApplicationUsers = this.applicationUserRepository.AllApplicationUsers};
             return View(uploadViewModel);
         }
     }
