@@ -12,11 +12,13 @@ namespace DocumentManagement.Models
 
         public string DadFirstNameInitial { get; set; }
 
-        public string FirtstName { get; set; }
+        public string FirstName { get; set; }
 
         public DateTime BirthDate { get; set; }
 
         public string SocialSecurityNumber { get; set; }
+
+        public string ContainerGuid { get; set; }
 
         public List<Faculty> Faculties { get; set; }
 

@@ -98,8 +98,9 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {LastName = Input.FirstName, DadFirstNameInitial = Input.DadFirstNameInitial,
-                    FirtstName = Input.FirstName, BirthDate = Input.Birthdate, SocialSecurityNumber = Input.SocialSecurityNumber,
-                    UserName = Input.Email, Email = Input.Email };
+                    FirstName = Input.FirstName, BirthDate = Input.Birthdate, SocialSecurityNumber = Input.SocialSecurityNumber,
+                    UserName = Input.Email, Email = Input.Email, ContainerGuid = Guid.NewGuid().ToString()
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

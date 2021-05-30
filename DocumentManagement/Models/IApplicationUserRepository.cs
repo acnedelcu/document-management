@@ -8,5 +8,6 @@ namespace DocumentManagement.Models
     public interface IApplicationUserRepository
     {
         public IEnumerable<ApplicationUser> AllApplicationUsers { get; }
+
     }
 }
