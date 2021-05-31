@@ -55,9 +55,9 @@ namespace DocumentManagement.BlobStorage
             await CreateContainer(applicationUser);
 
             var containerClient = new BlobContainerClient(blobConnectionString, applicationUser.ContainerGuid);
-
+ 
             //specify the blob name
-            BlobClient blobClient = containerClient.GetBlobClient("myfile");
+            BlobClient blobClient = containerClient.GetBlobClient(Path.GetFileName(filepath));
 
             //upload files
             using FileStream uploadFileStream = File.OpenRead(filepath);
