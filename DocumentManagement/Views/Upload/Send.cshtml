@@ -3,42 +3,32 @@
 
 <form method="post" enctype="multipart/form-data" asp-controller="Upload" asp-action="SendFiles">
     <div asp-validation-summary="All" class="text-danger"></div>
-    @*<div class="dx-fieldset">
-            <div class="dx-field">
-                <div class="dx-field-label">Program de studii</div>
-                <div class="dx-field-value">
-                    @(Html.DevExtreme().SelectBox().DataSource(Model.StudyPrograms.Select(sp =>sp.Major)).Placeholder("Alegeti program de studii").ShowClearButton(true))
-                </div>
-            </div>
-        </div>*@
 
-    <div class="dx-fieldset">
-        <div class="dx-field">
-            <div class="dx-field-label">Grupa</div>
-            <div class="dx-field-value">
-                @(Html.DevExtreme().SelectBox().Name("Group").DataSource(Model.Groups.Select(gr => gr.GroupName)).Placeholder("Alegeti grupa").ShowClearButton(true))
-            </div>
+    <div class="form-group">
+        <label asp-for="Group" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            @(Html.DevExtreme().SelectBox().Name("Group").DataSource(Model.Groups.Select(gr => gr.GroupName)).Placeholder("Alegeti grupa").ShowClearButton(true))
+            <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
 
-    <div class="dx-fieldset">
-        <div class="dx-field">
-            <div class="dx-field-label">Nume</div>
-            <div class="dx-field-value">
-                @(Html.DevExtreme().SelectBox().Name("LastName").DataSource(Model.ApplicationUsers.Select(au => au.LastName)).Placeholder("Alegeti nume").ShowClearButton(true))
-            </div>
+    <div class="form-group">
+        <label asp-for="FirstName" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            @(Html.DevExtreme().SelectBox().Name("FirstName").DataSource(Model.ApplicationUsers.Select(au => au.FirstName)).Placeholder("Alegeti prenume").ShowClearButton(true))
+            <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
 
-    <div class="dx-fieldset">
-        <div class="dx-field">
-            <div class="dx-field-label">Prenume</div>
-            <div class="dx-field-value">
-                @(Html.DevExtreme().SelectBox().Name("FirstName").DataSource(Model.ApplicationUsers.Select(au => au.FirstName)).Placeholder("Alegeti prenume").ShowClearButton(true))
-            </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            @(Html.DevExtreme().SelectBox().Name("LastName").DataSource(Model.ApplicationUsers.Select(au => au.LastName)).Placeholder("Alegeti nume").ShowClearButton(true))
+            <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
-    <div>
+
+    <div class="form-group">
 
         @(Html.DevExtreme().FileUploader()
         .ID("file-uploader")
@@ -51,6 +41,7 @@
         .Multiple(true)
         .UploadMode(FileUploadMode.UseForm)
         .UploadUrl(Url.Action("SendFiles","Upload")))
+
         @(Html.DevExtreme().Button()
         .ID("button")
         .Text("Incarca documente")

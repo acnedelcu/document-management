@@ -43,41 +43,29 @@ namespace DocumentManagement.Controllers
 
         [HttpPost]
         //[Authorize]
-        public async Task<ActionResult> SendFiles()
+        public async Task<ActionResult> SendFiles(UploadViewModel uploadViewModel)
         {
             //retrieving the data submitted
-            string group = Request.Form["Group"].ToString();
-            string firstName = Request.Form["FirstName"].ToString();
-            string lastName = Request.Form["LastName"].ToString();
             var file = Request.Form.Files["File"];
-            if(!String.IsNullOrWhiteSpace(group) && !String.IsNullOrWhiteSpace(firstName) && !String.IsNullOrWhiteSpace(lastName))
+            string group = uploadViewModel.Group;
+            string firstName = uploadViewModel.FirstName;
+            string lastName = uploadViewModel.LastName;
+
+            ApplicationUser applicationUser = applicationUserRepository.GetUserByNames(firstName, lastName).FirstOrDefault();
+
+            var filePath = Path.Combine(webHostEnvironment.WebRootPath, "uploads");
+
+            if (!Directory.Exists(filePath))
+                 Directory.CreateDirectory(filePath);
+
+            using (var fileStream = System.IO.File.Create(Path.Combine(filePath, file.FileName)))
             {
-                ApplicationUser applicationUser = applicationUserRepository.GetUserByNames(firstName, lastName).FirstOrDefault();
-
-                var filePath = Path.Combine(webHostEnvironment.WebRootPath, "uploads");
-
-                if (!Directory.Exists(filePath))
-                    Directory.CreateDirectory(filePath);
-
-                using (var fileStream = System.IO.File.Create(Path.Combine(filePath, file.FileName)))
-                {
-                    file.CopyTo(fileStream);
-                }
-                FileHandler fileHandler = new FileHandler(configuration);
-                await fileHandler.UploadFile(Path.Combine(filePath, file.FileName).ToString(), applicationUser);
-                System.IO.File.Delete(Path.Combine(filePath, file.FileName));
-
-                return new EmptyResult();
-
-
-
-
-
-
-
-
-
+                 file.CopyTo(fileStream);
             }
+                
+            FileHandler fileHandler = new FileHandler(configuration);
+            await fileHandler.UploadFile(Path.Combine(filePath, file.FileName).ToString(), applicationUser);
+            System.IO.File.Delete(Path.Combine(filePath, file.FileName));
 
             return new EmptyResult();
         }
