@@ -11,5 +11,7 @@ namespace DocumentManagement.Models
 
         public IEnumerable<ApplicationUser> GetUserByNames(string firstName, string lastName);
 
+        public IEnumerable<ApplicationUser> GetUsersFromGroup(string firstName, string lastName, string group);
+
     }
 }

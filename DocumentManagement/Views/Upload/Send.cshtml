@@ -1,20 +1,22 @@
 ﻿@model UploadViewModel
 
-<div id="form">
-    <div class="dx-fieldset">
-        <div class="dx-field">
-            <div class="dx-field-label">Program de studii</div>
-            <div class="dx-field-value">
-                @(Html.DevExtreme().SelectBox().DataSource(Model.StudyPrograms.Select(sp =>sp.Major)).Placeholder("Alegeti program de studii").ShowClearButton(true))
+
+<form method="post" enctype="multipart/form-data" asp-controller="Upload" asp-action="SendFiles">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @*<div class="dx-fieldset">
+            <div class="dx-field">
+                <div class="dx-field-label">Program de studii</div>
+                <div class="dx-field-value">
+                    @(Html.DevExtreme().SelectBox().DataSource(Model.StudyPrograms.Select(sp =>sp.Major)).Placeholder("Alegeti program de studii").ShowClearButton(true))
+                </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 
     <div class="dx-fieldset">
         <div class="dx-field">
             <div class="dx-field-label">Grupa</div>
             <div class="dx-field-value">
-                @(Html.DevExtreme().SelectBox().DataSource(Model.Groups.Select(gr => gr.GroupName)).Placeholder("Alegeti grupa").ShowClearButton(true))
+                @(Html.DevExtreme().SelectBox().Name("Group").DataSource(Model.Groups.Select(gr => gr.GroupName)).Placeholder("Alegeti grupa").ShowClearButton(true))
             </div>
         </div>
     </div>
@@ -23,7 +25,7 @@
         <div class="dx-field">
             <div class="dx-field-label">Nume</div>
             <div class="dx-field-value">
-                @(Html.DevExtreme().SelectBox().DataSource(Model.ApplicationUsers.Select(au => au.LastName)).Placeholder("Alegeti nume").ShowClearButton(true))
+                @(Html.DevExtreme().SelectBox().Name("LastName").DataSource(Model.ApplicationUsers.Select(au => au.LastName)).Placeholder("Alegeti nume").ShowClearButton(true))
             </div>
         </div>
     </div>
@@ -32,31 +34,28 @@
         <div class="dx-field">
             <div class="dx-field-label">Prenume</div>
             <div class="dx-field-value">
-                @(Html.DevExtreme().SelectBox().DataSource(Model.ApplicationUsers.Select(au => au.FirtstName)).Placeholder("Alegeti prenume").ShowClearButton(true))
+                @(Html.DevExtreme().SelectBox().Name("FirstName").DataSource(Model.ApplicationUsers.Select(au => au.FirstName)).Placeholder("Alegeti prenume").ShowClearButton(true))
             </div>
         </div>
     </div>
     <div>
 
-    @(Html.DevExtreme().FileUploader()
+        @(Html.DevExtreme().FileUploader()
         .ID("file-uploader")
-        .ChunkSize(200000)
-        .MaxFileSize(1048576)
+        .Name("File")
         .Accept("application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, .doc, .docx" +
             ",application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xls, .xlsx," +
             ",application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, .ppt, .pptx" +
             ",text/plain, .txt, application/pdf")
         .SelectButtonText("Alegeti fisier").UploadButtonText("Incarcati fisier")
         .Multiple(true)
-        .UploadMode(FileUploadMode.UseButtons)
-    /*.UploadChunk("uploadChunk")*/
-    )
-
-    @(Html.DevExtreme().Button()
+        .UploadMode(FileUploadMode.UseForm)
+        .UploadUrl(Url.Action("SendFiles","Upload")))
+        @(Html.DevExtreme().Button()
         .ID("button")
         .Text("Incarca documente")
         .Type(ButtonType.Success)
         .UseSubmitBehavior(true)
     )
     </div>
-</div>
+</form>
