@@ -13,5 +13,6 @@ namespace DocumentManagement.Models
 
         public IEnumerable<ApplicationUser> GetUsersFromGroup(string firstName, string lastName, string group);
 
+        public ApplicationUser GetUserWithId(string id);
     }
 }
