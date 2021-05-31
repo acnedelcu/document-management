@@ -9,5 +9,7 @@ namespace DocumentManagement.Models
     {
         public IEnumerable<ApplicationUser> AllApplicationUsers { get; }
 
+        public IEnumerable<ApplicationUser> GetUserByNames(string firstName, string lastName);
+
     }
 }

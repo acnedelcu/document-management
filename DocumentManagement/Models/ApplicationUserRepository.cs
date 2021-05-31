@@ -20,5 +20,10 @@ namespace DocumentManagement.Models
                 return this.appDbContext.ApplicationUsers;
             }
         }
+
+        public IEnumerable<ApplicationUser> GetUserByNames(string firstName, string lastName)
+        {
+            return this.appDbContext.ApplicationUsers.Where(au => au.FirstName == firstName && au.LastName == lastName);
+        }
     }
 }
