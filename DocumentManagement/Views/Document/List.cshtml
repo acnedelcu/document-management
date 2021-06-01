@@ -1,1 +1,15 @@
-﻿
+﻿@model ListViewModel
+
+@{ 
+    string fileHeaderName = "Fisiere";
+}
+
+@(Html.DevExtreme().DataGrid()
+    .ID("dataGrid")
+    .ShowBorders(true)
+    .DataSource(Model.BlobNames)
+    .Columns(columns =>
+    {
+        columns.Add().DataField("BlobName").Caption(fileHeaderName);
+    })
+) 

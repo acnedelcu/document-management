@@ -70,15 +70,29 @@ namespace DocumentManagement.BlobStorage
         /// </summary>
         /// <param name="applicationUser"></param>
         /// <returns></returns>
-        public async Task ListFiles(ApplicationUser applicationUser)
+        public async Task<List<string>> ListFiles(ApplicationUser applicationUser)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(blobConnectionString);
-            BlobContainerClient containerClient = await blobServiceClient.CreateBlobContainerAsync("mycontainer");
+            List<string> blobNames = new List<string>();
+            BlobContainerClient containerClient = new BlobContainerClient(blobConnectionString, applicationUser.ContainerGuid);
             await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
             {
-                Console.WriteLine("\t" + blobItem.Name);
+                //Console.WriteLine("\t" + blobItem.Name);
+                blobNames.Add(blobItem.Name);
             }
+            return blobNames;
         }
+
+        //public async Task<IEnumerable<string>> ListFiles(ApplicationUser applicationUser)
+        //{
+        //    List<string> blobNames = new List<string>();
+        //    BlobContainerClient containerClient = new BlobContainerClient(blobConnectionString, applicationUser.ContainerGuid);
+        //    await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
+        //    {
+        //        //Console.WriteLine("\t" + blobItem.Name);
+        //        blobNames.Add(blobItem.Name);
+        //    }
+        //    return blobNames;
+        //}
 
         public void DownloadFile()
         {
