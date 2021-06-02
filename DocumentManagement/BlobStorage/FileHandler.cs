@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using DocumentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace DocumentManagement.BlobStorage
     /// <summary>
     /// Class containing the methods to maniplulate files
     /// </summary>
+    [Authorize]
     public class FileHandler
     {
         private readonly IConfiguration configuration;
@@ -58,10 +60,11 @@ namespace DocumentManagement.BlobStorage
  
             //specify the blob name
             BlobClient blobClient = containerClient.GetBlobClient(Path.GetFileName(filepath));
+            
 
             //upload files
             using FileStream uploadFileStream = File.OpenRead(filepath);
-            await blobClient.UploadAsync(uploadFileStream, true);
+            await blobClient.UploadAsync(uploadFileStream, new BlobHttpHeaders { ContentType = Helper.GetFileType(filepath) }, conditions: null);
             uploadFileStream.Close();
         }
 
