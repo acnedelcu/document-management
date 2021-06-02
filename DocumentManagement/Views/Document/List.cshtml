@@ -4,12 +4,28 @@
     string fileHeaderName = "Fisiere";
 }
 
-@(Html.DevExtreme().DataGrid()
-    .ID("dataGrid")
-    .ShowBorders(true)
-    .DataSource(Model.BlobNames)
-    .Columns(columns =>
-    {
-        columns.Add().DataField("BlobName").Caption(fileHeaderName);
-    })
-) 
+<div style="padding: 1em 1em 1em 1em">
+    @(Html.DevExtreme().DataGrid()
+        .ID("dataGrid")
+        .ShowBorders(true)
+        .ShowRowLines(true)
+        .RowAlternationEnabled(false)
+        .HoverStateEnabled(true)
+        .DataSource(Model.BlobNames)
+        .Columns(columns =>
+        {
+            columns.Add().DataField("BlobName").Caption(fileHeaderName);
+        })
+        .Selection(sel => sel.Mode(SelectionMode.Single))
+        .OnSelectionChanged("itemSelected")
+    )
+</div>
+
+<script>
+    function itemSelected(selectedItems) {
+        var row = selectedItems.selectedRowsData[0];
+        if (row) {
+            alert(row.BlobName)
+        }
+    }
+</script>
