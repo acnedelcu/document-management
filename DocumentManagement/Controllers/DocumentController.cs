@@ -24,6 +24,8 @@ namespace DocumentManagement.Controllers
             this.applicationUserRepository = applicationUserRepository;
             this.userManager = userManager;
         }
+
+        [HttpGet]
         public async Task<ViewResult> List()
         {
             FileHandler fileHandler = new FileHandler(configuration);
@@ -39,6 +41,12 @@ namespace DocumentManagement.Controllers
                 listViewModel.BlobNames.Add(new DatagridFileWrapper { BlobName = file });
             }
             return View(listViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Open(string selectedFileName)
+        {
+            return Json("link");
         }
     }
 }

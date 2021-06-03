@@ -1,31 +1,41 @@
 ﻿@model ListViewModel
 
-@{ 
+@{
     string fileHeaderName = "Fisiere";
 }
 
-<div style="padding: 1em 1em 1em 1em">
+<h1>Documentele dvs.</h1>
+<div id="dataGridContainer" style="padding: 1em 1em 1em 1em">
     @(Html.DevExtreme().DataGrid()
-        .ID("dataGrid")
-        .ShowBorders(true)
-        .ShowRowLines(true)
-        .RowAlternationEnabled(false)
-        .HoverStateEnabled(true)
-        .DataSource(Model.BlobNames)
-        .Columns(columns =>
-        {
-            columns.Add().DataField("BlobName").Caption(fileHeaderName);
-        })
-        .Selection(sel => sel.Mode(SelectionMode.Single))
-        .OnSelectionChanged("itemSelected")
-    )
+            .ID("dataGrid")
+            .ShowBorders(true)
+            .ShowRowLines(true)
+            .RowAlternationEnabled(false)
+            .HoverStateEnabled(true)
+            .DataSource(Model.BlobNames)
+            .Columns(columns =>
+            {
+                columns.Add().DataField("BlobName").Caption(fileHeaderName);
+            })
+            .Selection(sel => sel.Mode(SelectionMode.Single))
+            .OnSelectionChanged(@<text>
+                <script>
+                    function(row) {
+                        var linie = row.selectedRowsData[0].BlobName;
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Open","Document")',
+                            data: { selectedFileName: linie},
+                            success: function (url) {
+                                window.open(url, "_blank");
+                            },
+                            error: function (req, status, error) {
+                                console.log("fail");
+                            },
+                            traditional: true
+                        })
+                    }
+                </script>
+    </text>)
+        )
 </div>
-
-<script>
-    function itemSelected(selectedItems) {
-        var row = selectedItems.selectedRowsData[0];
-        if (row) {
-            alert(row.BlobName)
-        }
-    }
-</script>
