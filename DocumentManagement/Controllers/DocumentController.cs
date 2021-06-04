@@ -56,6 +56,16 @@ namespace DocumentManagement.Controllers
         [HttpGet]
         public ViewResult Claim()
         {
+            var viewModel = new ClaimViewModel
+            {
+                ListDocType = new List<string> { "Adeverinta student", "Cerere camin", "Foaie matricola" }
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Claim(ClaimViewModel viewModel)
+        {
             return View();
         }
     }
