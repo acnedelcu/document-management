@@ -107,7 +107,7 @@ namespace DocumentManagement.BlobStorage
 
             blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
 
-            StorageSharedKeyCredential storageSharedKeyCredential = new StorageSharedKeyCredential(containerClient.AccountName, Environment.GetEnvironmentVariable("Account_Key"));
+            StorageSharedKeyCredential storageSharedKeyCredential = new StorageSharedKeyCredential(containerClient.AccountName, configuration["ConnectionStrings:AccountKey"]);
 
             string sasToken = blobSasBuilder.ToSasQueryParameters(storageSharedKeyCredential).ToString();
             string sasUrl = Helper.GetBlobSasUrl(containerClient.AccountName, applicationUser.ContainerGuid, blobName, sasToken);
