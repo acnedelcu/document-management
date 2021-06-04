@@ -52,5 +52,11 @@ namespace DocumentManagement.Controllers
             string blobSasUrl = fileHandler.GenerateBlobSasUrl(applicationUser, selectedFileName);
             return Json(blobSasUrl);
         }
+
+        [HttpGet]
+        public ViewResult Claim()
+        {
+            return View();
+        }
     }
 }
