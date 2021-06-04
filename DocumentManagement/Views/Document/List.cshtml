@@ -27,7 +27,7 @@
                             url: '@Url.Action("Open","Document")',
                             data: { selectedFileName: linie},
                             success: function (url) {
-                                window.open(url, "_blank");
+                                window.open(url, "_self");
                             },
                             error: function (req, status, error) {
                                 console.log("fail");
