@@ -1,5 +1,7 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Storage;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Sas;
 using DocumentManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,7 @@ namespace DocumentManagement.BlobStorage
     {
         private readonly IConfiguration configuration;
         private readonly string blobConnectionString;
+        private const int SasAccountLifetimeInMinutes = 10;
 
         /// <summary>
         /// Class constructor
@@ -85,21 +88,31 @@ namespace DocumentManagement.BlobStorage
             return blobNames;
         }
 
-        //public async Task<IEnumerable<string>> ListFiles(ApplicationUser applicationUser)
-        //{
-        //    List<string> blobNames = new List<string>();
-        //    BlobContainerClient containerClient = new BlobContainerClient(blobConnectionString, applicationUser.ContainerGuid);
-        //    await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
-        //    {
-        //        //Console.WriteLine("\t" + blobItem.Name);
-        //        blobNames.Add(blobItem.Name);
-        //    }
-        //    return blobNames;
-        //}
-
         public void DownloadFile()
         {
 
+        }
+
+        public string GenerateBlobSasUrl(ApplicationUser applicationUser, string blobName)
+        {
+            BlobContainerClient containerClient = new(blobConnectionString, applicationUser.ContainerGuid);
+            BlobSasBuilder blobSasBuilder = new BlobSasBuilder()
+            {
+                BlobContainerName = containerClient.Name,
+                BlobName = blobName,
+                Resource = "b", //b = blob, c = container
+                StartsOn = DateTimeOffset.UtcNow,
+                ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(SasAccountLifetimeInMinutes)
+            };
+
+            blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+            StorageSharedKeyCredential storageSharedKeyCredential = new StorageSharedKeyCredential(containerClient.AccountName, Environment.GetEnvironmentVariable("Account_Key"));
+
+            string sasToken = blobSasBuilder.ToSasQueryParameters(storageSharedKeyCredential).ToString();
+            string sasUrl = Helper.GetBlobSasUrl(containerClient.AccountName, applicationUser.ContainerGuid, blobName, sasToken);
+
+            return sasUrl;
         }
     }
 }

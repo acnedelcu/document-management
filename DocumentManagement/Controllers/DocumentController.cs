@@ -46,7 +46,11 @@ namespace DocumentManagement.Controllers
         [HttpPost]
         public JsonResult Open(string selectedFileName)
         {
-            return Json("link");
+            FileHandler fileHandler = new FileHandler(configuration);
+
+            ApplicationUser applicationUser = applicationUserRepository.GetUserWithId(userManager.GetUserId(this.User));
+            string blobSasUrl = fileHandler.GenerateBlobSasUrl(applicationUser, selectedFileName);
+            return Json(blobSasUrl);
         }
     }
 }

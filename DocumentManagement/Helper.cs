@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,6 +42,12 @@ namespace DocumentManagement
                 default:
                     return "application/octet-stream";
             }
+        }
+
+        public static string GetBlobSasUrl(string accountName, string containerName, string fileName, string sasToken)
+        {
+            string blobSasUrl = "https://" + accountName + ".blob.core.windows.net/" + containerName + "/" + fileName + "?" + sasToken;
+            return blobSasUrl;
         }
     }
 }
