@@ -35,5 +35,10 @@ namespace DocumentManagement.Models
         {
             return this.appDbContext.ApplicationUsers.Where(au => au.Id == id).FirstOrDefault();
         }
+
+        public ApplicationUser GetUserWithUsername(string username)
+        {
+            return this.appDbContext.ApplicationUsers.Where(au => au.UserName == username).FirstOrDefault();
+        }
     }
 }
