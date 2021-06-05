@@ -9,6 +9,7 @@ namespace DocumentManagement
 {
     public static class Helper
     {
+        public static List<FileRequest> FileRequests = new List<FileRequest>();
         private const string PdfExtension = ".pdf";
         private const string DocExtension = ".doc";
         private const string DocxExtension = ".docx";
@@ -17,6 +18,7 @@ namespace DocumentManagement
         private const string PptExtension = ".ppt";
         private const string PptxExtension = ".pptx";
         private const string TxtFileExtension = ".txt";
+
         public static string GetFileType(string filepath)
         {
             string fileExtension = Path.GetExtension(filepath);

@@ -65,12 +65,11 @@ namespace DocumentManagement.Controllers
         {
             string documentType = viewModel.DocumentType;
             string description = viewModel.Description;
-
             ApplicationUser applicationUser = applicationUserRepository.GetUserWithUsername(User.Identity.Name);
 
+            //add the request to the FileRequestList
             Helper.FileRequests.Add(new FileRequest { ApplicationUser = applicationUser, DocumentType = documentType, Description = description });
 
-            
             return View(viewModel);
         }
     }
