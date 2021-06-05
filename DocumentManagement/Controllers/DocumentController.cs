@@ -56,17 +56,22 @@ namespace DocumentManagement.Controllers
         [HttpGet]
         public ViewResult Claim()
         {
-            var viewModel = new ClaimViewModel
-            {
-                ListDocType = new List<string> { "Adeverinta student", "Cerere camin", "Foaie matricola" }
-            };
+            var viewModel = new ClaimViewModel();
             return View(viewModel);
         }
 
         [HttpPost]
         public ActionResult Claim(ClaimViewModel viewModel)
         {
-            return View();
+            string documentType = viewModel.DocumentType;
+            string description = viewModel.Description;
+
+            ApplicationUser applicationUser = applicationUserRepository.GetUserWithUsername(User.Identity.Name);
+
+            Helper.FileRequests.Add(new FileRequest { ApplicationUser = applicationUser, DocumentType = documentType, Description = description });
+
+            
+            return View(viewModel);
         }
     }
 }
