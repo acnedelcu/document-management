@@ -13,6 +13,7 @@ namespace DocumentManagement.ViewModels
         {
             ListDocType = new List<string> { "Adeverinta student", "Foaie matricola" };
         }
+
         public static List<string> ListDocType { get; set; }
 
         [Required(ErrorMessage = errorMessage)]
