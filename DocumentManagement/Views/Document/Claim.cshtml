@@ -7,7 +7,7 @@
     <div class="form-group">
         <label asp-for="DocumentType" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            @(Html.DevExtreme().SelectBox().Name("DocumentType").DataSource(Model.ListDocType).Placeholder("Tip document").ShowClearButton(true))
+            @(Html.DevExtreme().SelectBox().Name("DocumentType").DataSource(ClaimViewModel.ListDocType).Placeholder("Tip document").ShowClearButton(true))
             <span asp-validation-for="DocumentType" class="text-danger"></span>
         </div>
     </div>

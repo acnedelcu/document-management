@@ -9,8 +9,11 @@ namespace DocumentManagement.ViewModels
     public class ClaimViewModel
     {
         private const string errorMessage = "Camp obligatoriu";
-
-        public List<string> ListDocType { get; set; }
+        public ClaimViewModel()
+        {
+            ListDocType = new List<string> { "Adeverinta student", "Foaie matricola" };
+        }
+        public static List<string> ListDocType { get; set; }
 
         [Required(ErrorMessage = errorMessage)]
         public string DocumentType { get; set; }
