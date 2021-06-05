@@ -43,7 +43,7 @@ namespace DocumentManagement.Controllers
 
         [HttpPost]
         //[Authorize]
-        public async Task<ActionResult> SendFiles(UploadViewModel uploadViewModel)
+        public async Task<ActionResult> Send(UploadViewModel uploadViewModel)
         {
             //retrieving the data submitted
             var file = Request.Form.Files["File"];
@@ -67,7 +67,12 @@ namespace DocumentManagement.Controllers
             await fileHandler.UploadFile(Path.Combine(filePath, file.FileName).ToString(), applicationUser);
             System.IO.File.Delete(Path.Combine(filePath, file.FileName));
 
-            return new EmptyResult();
+            //the lists will be empty on post and we need to repopulate them
+            uploadViewModel.ApplicationUsers = this.applicationUserRepository.AllApplicationUsers;
+            uploadViewModel.StudyPrograms = this.studyProgramRepository.AllStudyPrograms;
+            uploadViewModel.Groups = this.groupRepository.AllGroups;
+
+            return View(uploadViewModel);
         }
     }
 }
