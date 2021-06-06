@@ -33,12 +33,25 @@ namespace DocumentManagement.Controllers
 
         [HttpGet]
         //[Authorize]
-        public ViewResult Send()
+        public ViewResult Send(int id)
         {
-            var uploadViewModel = new UploadViewModel
-            { Groups = this.groupRepository.AllGroups, StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
-            ApplicationUsers = this.applicationUserRepository.AllApplicationUsers};
-            return View(uploadViewModel);
+            if (id == -1)
+            {
+                var uploadViewModel = new UploadViewModel
+                { Groups = this.groupRepository.AllGroups, StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
+                ApplicationUsers = this.applicationUserRepository.AllApplicationUsers};
+                return View(uploadViewModel);
+            }
+            else
+            {
+                var uploadViewModel = new UploadViewModel
+                {
+                    Groups = this.groupRepository.AllGroups,
+                    StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
+                    ApplicationUsers = new List<ApplicationUser> { Helper.FileRequests[id].ApplicationUser }  
+                };
+                return View(uploadViewModel);
+            }
         }
 
         [HttpPost]
