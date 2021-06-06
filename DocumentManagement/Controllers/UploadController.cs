@@ -35,7 +35,7 @@ namespace DocumentManagement.Controllers
         //[Authorize]
         public ViewResult Send(int id)
         {
-            if (id == -1)
+            if (id == -1 || id==0)
             {
                 var uploadViewModel = new UploadViewModel
                 { Groups = this.groupRepository.AllGroups, StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
