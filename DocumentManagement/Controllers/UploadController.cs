@@ -50,6 +50,7 @@ namespace DocumentManagement.Controllers
                     StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
                     ApplicationUsers = new List<ApplicationUser> { Helper.FileRequests[id].ApplicationUser }  
                 };
+                Helper.FileRequests.RemoveAt(id);
                 return View(uploadViewModel);
             }
         }
