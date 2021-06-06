@@ -5,7 +5,7 @@
     string DescriptionCaption = "Descriere";
     string LastNameCaption = "Nume";
     string DadNameInitialCaption = "Initiala tatalui";
-    string FirstNameCaption = "Prenume"
+    string FirstNameCaption = "Prenume";
 
 }
 <div>
@@ -29,4 +29,15 @@
         columns.Add().DataField("ApplicationUser.FirstName").Caption(FirstNameCaption);
     })
     .Selection(sel => sel.Mode(SelectionMode.Single))
+    .OnSelectionChanged(
+        @<text>
+            function(e){
+                var grid = e.component;
+                var keys = grid.getSelectedRowKeys();
+                var index = grid.getRowIndexByKey(keys[0]);
+
+                window.location = "@Url.Action("Send" , "Upload")" + "/"+ Number(index);
+            }
+        </text>
+    )
 )
