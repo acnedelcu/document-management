@@ -72,5 +72,11 @@ namespace DocumentManagement.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult FileRequests()
+        {
+            var viewModel = new FileRequestViewModel();
+            return View(viewModel);
+        }
     }
 }
