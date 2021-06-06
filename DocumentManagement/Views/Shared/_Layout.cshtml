@@ -11,7 +11,19 @@
 
     <!--Fontawesome icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
-    <link rel="stylesheet" href="~/styles/navbar.css"/>
+    <link rel="stylesheet" href="~/styles/navbar.css" />
+
+    <!--Devextreme-->
+    <link href="~/css/devextreme/dx.common.css" rel="stylesheet" />
+    <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
+
+    <script src="~/js/devextreme/jquery.js"></script>
+
+    <script src="~/js/devextreme/dx.all.js"></script>
+
+    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
+    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -23,11 +35,11 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a href="#" class="nav-link"><i class="fa fa-folder-open"></i>Documente disponibile</a>
+                    <a class="nav-link" asp-controller="Document" asp-action="List"><i class="fa fa-folder-open"></i>Documente disponibile</a>
                 </li>
 
                 <li class="nav-item active">
-                    <a href="#" class="nav-link active"><i class="fa fa-file-alt"></i>Cereri documente</a>
+                    <a class="nav-link active" asp-controller="Document" asp-action="Claim"><i class="fa fa-file-alt"></i>Cerere documente</a>
                 </li>
 
                 <li class="nav-item active">
@@ -35,7 +47,11 @@
                 </li>
 
                 <li class="nav-item active">
-                    <a href="#" class="nav-link active"><i class="fas fa-file-upload"></i>Încărcare documente</a>
+                    <a class="nav-link active" asp-controller="Upload" asp-action="Send"><i class="fas fa-file-upload"></i>Încărcare documente</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link active" asp-controller="Document" asp-action="FileRequests"><i class="fas fa-file-upload"></i>Lista cereri</a>
                 </li>
                 <partial name="_LoginPartial" />
             </ul>
@@ -45,6 +61,6 @@
     <div>
         @RenderBody()
     </div>
-    @RenderSection("Scripts", required: false);
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

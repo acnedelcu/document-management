@@ -94,6 +94,9 @@ namespace DocumentManagement.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ContainerGuid")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DadFirstNameInitial")
                         .HasColumnType("nvarchar(max)");
 
@@ -104,7 +107,7 @@ namespace DocumentManagement.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirtstName")
+                    b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")

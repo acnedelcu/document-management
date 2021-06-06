@@ -1,0 +1,43 @@
+﻿@model FileRequestViewModel
+
+@{
+    string DocumentTypeCaption = "Tip";
+    string DescriptionCaption = "Descriere";
+    string LastNameCaption = "Nume";
+    string DadNameInitialCaption = "Initiala tatalui";
+    string FirstNameCaption = "Prenume";
+
+}
+<div>
+    File requests for admins as table
+</div>
+
+
+@(Html.DevExtreme().DataGrid()
+    .ID("FileRequests")
+    .ShowBorders(true)
+    .ShowRowLines(true)
+    .HoverStateEnabled(true)
+    .AllowColumnResizing(true)
+    .DataSource(Model.FileRequests)
+    .Columns(columns =>
+    {
+        columns.Add().DataField("DocumentType").Caption(DocumentTypeCaption);
+        columns.Add().DataField("Description").Caption(DescriptionCaption);
+        columns.Add().DataField("ApplicationUser.LastName").Caption(LastNameCaption);
+        columns.Add().DataField("ApplicationUser.DadFirstNameInitial").Caption(DadNameInitialCaption).Width(100);
+        columns.Add().DataField("ApplicationUser.FirstName").Caption(FirstNameCaption);
+    })
+    .Selection(sel => sel.Mode(SelectionMode.Single))
+    .OnSelectionChanged(
+        @<text>
+            function(e){
+                var grid = e.component;
+                var keys = grid.getSelectedRowKeys();
+                var index = grid.getRowIndexByKey(keys[0]);
+
+                window.location = "@Url.Action("Send" , "Upload")" + "/"+ Number(index);
+            }
+        </text>
+    )
+)

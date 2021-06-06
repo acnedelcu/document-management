@@ -29,10 +29,16 @@ namespace DocumentManagement
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DbConnectionString")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             services.AddRazorPages(); //needed for the scaffolded items added by auth
             services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
+
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IFacultyRepository, FacultyRepository>();
+            services.AddScoped<IStudyProgramRepository, StudyProgramRepository>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
