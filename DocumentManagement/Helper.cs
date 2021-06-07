@@ -1,9 +1,11 @@
 ﻿using DocumentManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ZXing;
 
 namespace DocumentManagement
 {
@@ -18,6 +20,9 @@ namespace DocumentManagement
         private const string PptExtension = ".ppt";
         private const string PptxExtension = ".pptx";
         private const string TxtFileExtension = ".txt";
+
+        //Qr codes constants
+        private const int QrWidthInPixels = 400, QrHeightInPixels = 400;
 
         public static string GetFileType(string filepath)
         {
@@ -50,6 +55,24 @@ namespace DocumentManagement
         {
             string blobSasUrl = "https://" + accountName + ".blob.core.windows.net/" + containerName + "/" + fileName + "?" + sasToken;
             return blobSasUrl;
+        }
+
+        /// <summary>
+        /// Generates a QR code for a given url
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static Bitmap GenerateQrCodeForUrl(string url)
+        {
+            BarcodeWriter writer = new BarcodeWriter
+            {
+                Format = BarcodeFormat.QR_CODE,
+                Options = new ZXing.Common.EncodingOptions { Width = QrWidthInPixels, Height = QrHeightInPixels }
+            };
+
+            Bitmap resultedQrCode = new Bitmap(writer.Write(url));
+
+            return resultedQrCode;
         }
     }
 }
