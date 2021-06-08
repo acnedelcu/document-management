@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentManagement.Models;
+using DocumentManagement.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +13,17 @@ namespace DocumentManagement.Controllers
     {
         private static readonly string GeneratedQrFileName = "AccountQrCode.bmp";
         private static readonly string DocumentsListUrl = "Document/List";
+
+        private readonly IApplicationUserRepository applicationUserRepository;
+        private readonly IGroupRepository groupRepository;
+        private readonly IStudyProgramRepository studyProgramRepository;
+        public QrcodeController(IApplicationUserRepository applicationUserRepository, IGroupRepository groupRepository, IStudyProgramRepository studyProgramRepository)
+        {
+            this.applicationUserRepository = applicationUserRepository;
+            this.groupRepository = groupRepository;
+            this.studyProgramRepository = studyProgramRepository;
+        }
+
         public IActionResult Generate()
         {
             return View();
@@ -30,6 +43,17 @@ namespace DocumentManagement.Controllers
             var fileName = GeneratedQrFileName;
 
             return File(content, contentType, fileName);
+        }
+
+        public IActionResult GenerateAdmin()
+        {
+            var viewModel = new GenerateAdminViewModel
+            {
+                ApplicationUsers = this.applicationUserRepository.AllApplicationUsers,
+                Groups = this.groupRepository.AllGroups,
+                StudyPrograms = this.studyProgramRepository.AllStudyPrograms
+            };
+            return View(viewModel);
         }
     }
 }
