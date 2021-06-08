@@ -1,1 +1,12 @@
-﻿
+﻿<div>
+    Apasati butonul de mai jos pentru a genera un qr code asociat profilului dumneavoastra<br />
+    Cu ajutorul acestuia puteti sa va accesa contul cu usurinta!
+</div>
+@{ 
+    string generateQrButtonText = "Generati QR";
+}
+
+@(Html.DevExtreme().Button()
+    .ID("GenerateQrUser")
+    .Text(generateQrButtonText)
+    )
