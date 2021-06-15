@@ -26,38 +26,11 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        @*<div class="container">*@
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fa fa-fw fa-home"></i>Acasă</a>
-                </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" asp-controller="Document" asp-action="List"><i class="fa fa-folder-open"></i>Documente disponibile</a>
-                </li>
-
-                <li class="nav-item active">
-                    <a class="nav-link active" asp-controller="Document" asp-action="Claim"><i class="fa fa-file-alt"></i>Cerere documente</a>
-                </li>
-
-                <li class="nav-item active">
-                    <a class="nav-link active" asp-controller="Qrcode" asp-action="Generate"><i class="fa fa-qrcode"></i>Management QR</a>
-                </li>
-
-                <li class="nav-item active">
-                    <a class="nav-link active" asp-controller="Upload" asp-action="Send"><i class="fas fa-file-upload"></i>Încărcare documente</a>
-                </li>
-
-                <li class="nav-item active">
-                    <a class="nav-link active" asp-controller="Document" asp-action="FileRequests"><i class="fas fa-file-upload"></i>Lista cereri</a>
-                </li>
-                <partial name="_LoginPartial" />
-            </ul>
-        </div>
-        @*</div>*@
-    </nav>
+    @if (User.Identity.IsAuthenticated)
+            {
+                @Html.Partial("_Navbar")
+            }
     <div>
         @RenderBody()
     </div>
