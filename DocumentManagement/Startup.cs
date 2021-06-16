@@ -2,6 +2,7 @@ using DocumentManagement.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,7 @@ namespace DocumentManagement
             services.AddControllersWithViews().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             services.AddRazorPages(); //needed for the scaffolded items added by auth
-            services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddDefaultIdentity<ApplicationUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
@@ -42,7 +43,7 @@ namespace DocumentManagement
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -63,6 +64,26 @@ namespace DocumentManagement
 
                 endpoints.MapRazorPages();
             });
+            CreateRoles(serviceProvider);
+        }
+
+        private void CreateRoles(IServiceProvider serviceProvider)
+        {
+            string[] roles = { "Admin", "User" };
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            Task<IdentityResult> roleResult;
+
+            foreach (var roleName in roles)
+            {
+                Task<bool> roleExist = RoleManager.RoleExistsAsync(roleName);
+                roleExist.Wait(); //we need to wait because the methods are async
+                if (!roleExist.Result)
+                {
+                    roleResult = RoleManager.CreateAsync(new IdentityRole(roleName));
+                    roleResult.Wait();
+                }
+            }
+
         }
     }
 }
