@@ -31,7 +31,7 @@ namespace DocumentManagement.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                GenerateAdmin generateAdminViewModel = new GenerateAdmin
+                GenerateViewModel generateAdminViewModel = new GenerateViewModel
                 { ApplicationUsers = applicationUserRepository.AllApplicationUsers, Groups = groupRepository.AllGroups, StudyPrograms = studyProgramRepository.AllStudyPrograms };
                 return View(generateAdminViewModel);
             }
@@ -42,7 +42,7 @@ namespace DocumentManagement.Controllers
             else return Forbid(); //return 403 forbidden
         }
 
-        public IActionResult DownloadQr(GenerateAdmin viewModel)
+        public IActionResult DownloadQr(GenerateViewModel viewModel)
         {
             byte[] qrCode;
             Bitmap generatedQrCode;

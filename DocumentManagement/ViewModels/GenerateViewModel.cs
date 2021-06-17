@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.ViewModels
 {
-    public class GenerateAdmin
+    public class GenerateViewModel
     {
         private const string FormFieldErrorMessage = "Camp obligatoriu!";
         private const string FirstNameDisplayName = "Prenume", LastNameDisplayName = "Nume", DadNameInitialDisplayName = "Initiala tatalui",
