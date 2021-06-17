@@ -1,14 +1,17 @@
 ﻿using DocumentManagement.Models;
 using DocumentManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DocumentManagement.Controllers
 {
+    [Authorize]
     public class QrcodeController : Controller
     {
         private static readonly string GeneratedQrFileName = "AccountQrCode.bmp";
@@ -26,15 +29,32 @@ namespace DocumentManagement.Controllers
 
         public IActionResult Generate()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                GenerateAdmin generateAdminViewModel = new GenerateAdmin
+                { ApplicationUsers = applicationUserRepository.AllApplicationUsers, Groups = groupRepository.AllGroups, StudyPrograms = studyProgramRepository.AllStudyPrograms };
+                return View(generateAdminViewModel);
+            }
+            else if (User.IsInRole("User"))
+            {
+                return View();
+            }
+            else return Forbid(); //return 403 forbidden
         }
 
-        public IActionResult DownloadQr()
+        public IActionResult DownloadQr(GenerateAdmin viewModel)
         {
             byte[] qrCode;
+            Bitmap generatedQrCode;
             using(var memoryStream = new MemoryStream())
             {
-                var generatedQrCode = Helper.GenerateQrCodeForUrl(DocumentsListUrl);
+                if(viewModel == null)
+                {
+                    generatedQrCode = Helper.GenerateQrCodeForUrl(DocumentsListUrl);
+                }else
+                {
+                    generatedQrCode = Helper.GenerateQrCodeForUrl(DocumentsListUrl);
+                }
                 generatedQrCode.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
                 qrCode = memoryStream.ToArray();
             }
@@ -43,17 +63,6 @@ namespace DocumentManagement.Controllers
             var fileName = GeneratedQrFileName;
 
             return File(content, contentType, fileName);
-        }
-
-        public IActionResult GenerateAdmin()
-        {
-            var viewModel = new GenerateAdminViewModel
-            {
-                ApplicationUsers = this.applicationUserRepository.AllApplicationUsers,
-                Groups = this.groupRepository.AllGroups,
-                StudyPrograms = this.studyProgramRepository.AllStudyPrograms
-            };
-            return View(viewModel);
         }
     }
 }
