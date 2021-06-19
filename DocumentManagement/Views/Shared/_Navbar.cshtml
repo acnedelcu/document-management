@@ -9,9 +9,12 @@
                 <a class="nav-link" asp-controller="Document" asp-action="List"><i class="fa fa-folder-open"></i>Documente disponibile</a>
             </li>
 
-            <li class="nav-item active">
-                <a class="nav-link active" asp-controller="Document" asp-action="Claim"><i class="fa fa-file-alt"></i>Cerere documente</a>
-            </li>
+            @if (User.IsInRole("User"))
+            {
+                <li class="nav-item active">
+                    <a class="nav-link active" asp-controller="Document" asp-action="Claim"><i class="fa fa-file-alt"></i>Cerere documente</a>
+                </li>
+            }
 
             <li class="nav-item active">
                 <a class="nav-link active" asp-controller="Qrcode" asp-action="Generate"><i class="fa fa-qrcode"></i>Management QR</a>
@@ -21,9 +24,13 @@
                 <a class="nav-link active" asp-controller="Upload" asp-action="Send"><i class="fas fa-file-upload"></i>Încărcare documente</a>
             </li>
 
-            <li class="nav-item active">
-                <a class="nav-link active" asp-controller="Document" asp-action="FileRequests"><i class="fas fa-file-upload"></i>Lista cereri</a>
-            </li>
+            @if (User.IsInRole("Admin"))
+             {
+                <li class="nav-item active">
+                    <a class="nav-link active" asp-controller="Document" asp-action="FileRequests"><i class="fas fa-file-upload"></i>Cereri</a>
+                </li>
+             }
+
             <partial name="_LoginPartial" />
         </ul>
     </div>
