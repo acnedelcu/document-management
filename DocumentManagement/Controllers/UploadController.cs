@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Controllers
 {
+    [Authorize]
     public class UploadController : Controller
     {
         private readonly IGroupRepository groupRepository;
@@ -32,7 +33,6 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
         public ViewResult Send(int id)
         {
             if (id == -1 || id==0)
@@ -56,7 +56,6 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
         public async Task<ActionResult> Send(UploadViewModel uploadViewModel)
         {
             //retrieving the data submitted
