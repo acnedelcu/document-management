@@ -89,7 +89,6 @@ namespace DocumentManagement.Controllers
         {
             FileHandler fileHandler = new FileHandler(configuration);
             ListViewModel listViewModel = new ListViewModel();
-            //ApplicationUser applicationUser = applicationUserRepository.GetUserWithId(userManager.GetUserId(this.User));
             ApplicationUser applicationUser = applicationUserRepository.GetUserByNames(adminViewModel.FirstName, adminViewModel.LastName).FirstOrDefault();
 
             List<string> fileNames = new List<string>();
