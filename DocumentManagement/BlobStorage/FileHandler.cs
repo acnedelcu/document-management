@@ -22,6 +22,7 @@ namespace DocumentManagement.BlobStorage
         private readonly IConfiguration configuration;
         private readonly string blobConnectionString;
         private const int SasAccountLifetimeInMinutes = 10;
+        private const int ArchiveSasLifetimeInYears = 10;
 
         /// <summary>
         /// Class constructor
@@ -38,9 +39,6 @@ namespace DocumentManagement.BlobStorage
         /// </summary>
         public async Task CreateContainer(ApplicationUser appUser)
         {
-            //used to create a container client
-            //var blobServiceClient = new BlobServiceClient(connectionString);
-
             var containerClient = new BlobContainerClient(blobConnectionString, appUser.ContainerGuid);
             await containerClient.CreateIfNotExistsAsync();
         }
@@ -53,10 +51,6 @@ namespace DocumentManagement.BlobStorage
         /// <returns></returns>
         public async Task UploadFile(string filepath, ApplicationUser applicationUser)
         {
-            ////get reference to storage account
-            //BlobServiceClient blobServiceClient = new BlobServiceClient(configuration.GetConnectionString("StorageConnectionString"));
-            ////crate and get the reference to a container
-            //BlobContainerClient containerClient = await blobServiceClient.CreateBlobContainerAsync("filehandler2");
             await CreateContainer(applicationUser);
 
             var containerClient = new BlobContainerClient(blobConnectionString, applicationUser.ContainerGuid);
@@ -82,17 +76,17 @@ namespace DocumentManagement.BlobStorage
             BlobContainerClient containerClient = new BlobContainerClient(blobConnectionString, applicationUser.ContainerGuid);
             await foreach (BlobItem blobItem in containerClient.GetBlobsAsync())
             {
-                //Console.WriteLine("\t" + blobItem.Name);
                 blobNames.Add(blobItem.Name);
             }
             return blobNames;
         }
 
-        public void DownloadFile()
-        {
-
-        }
-
+        /// <summary>
+        /// Generates a blob SAS url with a shorter lifetime that is used for access
+        /// </summary>
+        /// <param name="applicationUser"></param>
+        /// <param name="blobName"></param>
+        /// <returns></returns>
         public string GenerateBlobSasUrl(ApplicationUser applicationUser, string blobName)
         {
             BlobContainerClient containerClient = new(blobConnectionString, applicationUser.ContainerGuid);
@@ -103,6 +97,34 @@ namespace DocumentManagement.BlobStorage
                 Resource = "b", //b = blob, c = container
                 StartsOn = DateTimeOffset.UtcNow,
                 ExpiresOn = DateTimeOffset.UtcNow.AddMinutes(SasAccountLifetimeInMinutes)
+            };
+
+            blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
+
+            StorageSharedKeyCredential storageSharedKeyCredential = new StorageSharedKeyCredential(containerClient.AccountName, configuration["ConnectionStrings:AccountKey"]);
+
+            string sasToken = blobSasBuilder.ToSasQueryParameters(storageSharedKeyCredential).ToString();
+            string sasUrl = Helper.GetBlobSasUrl(containerClient.AccountName, applicationUser.ContainerGuid, blobName, sasToken);
+
+            return sasUrl;
+        }
+
+        /// <summary>
+        /// Generates the blob SAS url with a prolonged lifetime
+        /// </summary>
+        /// <param name="applicationUser"></param>
+        /// <param name="blobName"></param>
+        /// <returns></returns>
+        public string GenerateArchiveBlobSasUrl(ApplicationUser applicationUser, string blobName)
+        {
+            BlobContainerClient containerClient = new(blobConnectionString, applicationUser.ContainerGuid);
+            BlobSasBuilder blobSasBuilder = new BlobSasBuilder()
+            {
+                BlobContainerName = containerClient.Name,
+                BlobName = blobName,
+                Resource = "b", //b = blob, c = container
+                StartsOn = DateTimeOffset.UtcNow,
+                ExpiresOn = DateTimeOffset.UtcNow.AddYears(ArchiveSasLifetimeInYears)
             };
 
             blobSasBuilder.SetPermissions(BlobSasPermissions.Read);
