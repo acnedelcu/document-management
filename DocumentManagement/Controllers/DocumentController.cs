@@ -78,5 +78,24 @@ namespace DocumentManagement.Controllers
             var viewModel = new FileRequestViewModel();
             return View(viewModel);
         }
+
+        public async Task<ViewResult> ListForQr(GenerateViewModel adminViewModel)
+        {
+            FileHandler fileHandler = new FileHandler(configuration);
+            ListViewModel listViewModel = new ListViewModel();
+            //ApplicationUser applicationUser = applicationUserRepository.GetUserWithId(userManager.GetUserId(this.User));
+            ApplicationUser applicationUser = applicationUserRepository.GetUserByNames(adminViewModel.FirstName, adminViewModel.LastName).FirstOrDefault();
+
+            List<string> fileNames = new List<string>();
+
+            //we cannot pass directly a List<String> to the Datagrid; we need a wrapper class
+            fileNames = await fileHandler.ListFiles(applicationUser);
+            listViewModel.ApplicationUser = applicationUser;
+            foreach (var file in fileNames)
+            {
+                listViewModel.BlobNames.Add(new DatagridFileWrapper { BlobName = file });
+            }
+            return View(listViewModel);
+        }
     }
 }
