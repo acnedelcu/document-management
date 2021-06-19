@@ -38,9 +38,21 @@ namespace DocumentManagement.Controllers
         {
             if (id == -1 || id==0)
             {
-                var uploadViewModel = new UploadViewModel
-                { Groups = this.groupRepository.AllGroups, StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
-                ApplicationUsers = this.applicationUserRepository.AllApplicationUsers};
+                var uploadViewModel = new UploadViewModel();
+                if (User.IsInRole("Admin"))
+                {
+                    uploadViewModel.Groups = this.groupRepository.AllGroups;
+                    uploadViewModel.StudyPrograms = this.studyProgramRepository.AllStudyPrograms;
+                    uploadViewModel.ApplicationUsers = this.applicationUserRepository.AllApplicationUsers;
+                }
+                else
+                {
+                    uploadViewModel.Groups = this.groupRepository.AllGroups; //TODO modify
+                    uploadViewModel.StudyPrograms = this.studyProgramRepository.AllStudyPrograms; //TODO modify
+                    //make only the username of the current logged available in the list if the role is user
+                    ApplicationUser applicationUser = this.applicationUserRepository.GetUserWithUsername(User.Identity.Name);
+                    uploadViewModel.ApplicationUsers = new List<ApplicationUser> { applicationUser };
+                }
                 return View(uploadViewModel);
             }
             else
