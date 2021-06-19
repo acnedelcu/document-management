@@ -26,6 +26,7 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ViewResult> List()
         {
             FileHandler fileHandler = new FileHandler(configuration);
@@ -44,6 +45,7 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public JsonResult Open(string selectedFileName)
         {
             FileHandler fileHandler = new FileHandler(configuration);
@@ -54,6 +56,7 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "User")]
         public ViewResult Claim()
         {
             var viewModel = new ClaimViewModel();
@@ -61,6 +64,7 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User")]
         public ActionResult Claim(ClaimViewModel viewModel)
         {
             string documentType = viewModel.DocumentType;
@@ -73,12 +77,14 @@ namespace DocumentManagement.Controllers
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult FileRequests()
         {
             var viewModel = new FileRequestViewModel();
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ViewResult> ListForQr(GenerateViewModel adminViewModel)
         {
             FileHandler fileHandler = new FileHandler(configuration);

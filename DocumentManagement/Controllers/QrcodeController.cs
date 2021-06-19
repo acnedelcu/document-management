@@ -64,6 +64,7 @@ namespace DocumentManagement.Controllers
         /// <param name="viewModel"></param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "User")]
         public IActionResult DownloadQr(GenerateViewModel viewModel)
         {
             byte[] qrCode;
@@ -93,6 +94,7 @@ namespace DocumentManagement.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult DownloadArchiveQr(ListViewModel viewModel)
         {

@@ -33,6 +33,7 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public ViewResult Send(int id)
         {
             if (id == -1 || id==0)
@@ -56,6 +57,7 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Admin, User")]
         public async Task<ActionResult> Send(UploadViewModel uploadViewModel)
         {
             //retrieving the data submitted
