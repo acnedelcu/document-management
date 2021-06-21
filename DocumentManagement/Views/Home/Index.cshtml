@@ -1,3 +1,73 @@
-﻿<div class="home-image-wrapper">
-    <img src="~/homeillustration.png"  class="home-ilustration"/>
+﻿@{
+    string pageGreeting = "AzureDocs - managementul documentelor interne unei facultăți";
+    string subPageGreeting = "Bine ați venit in AzureDocs, sistemul de partajare a documentelor unei facultați!" +
+                "Accesați una din categoriile de mai jos.";
+    string homeDocumentsLink = "Documente";
+    string documentsDescription = "Accesați lista documentelor disponibile";
+
+    string homeUploadLink = "Încarcă documente";
+    string homeUploadDescription = "Încărcați documente precum cereri și adeverințe";
+
+    string homeQrLink = "Coduri QR";
+    string homeQrDescription = "Generați coduri QR pentru accesarea rapidă de documente";
+
+    string homeRequestQr = "Cereri documente";
+    string homeRequestDescription = "Cereri de eliberare a documentelor";
+
+    string docReqAction;
+    if(User.IsInRole("User"))
+    {
+        docReqAction = "Claim";
+    }
+    else
+    {
+        docReqAction = "FileRequests";
+    }
+}
+
+<div class="homepage-title">AzureDocs - managementul documentelor interne unei facultăți</div>
+<div class="homepage-subtitle">Accesați una din categoriile de mai jos pentru a începe utilizarea</div>
+
+<div class="home-image-wrapper">
+    <div class="flex-container">
+        <div class="left-column">
+            <br />
+            <br />
+            <br />
+            <div>
+                <a class="homepage-link" asp-controller="Document" asp-action="List">
+                    <h3 class="text-right">@homeDocumentsLink</h3>
+                </a>
+                <div class="link-description">@documentsDescription</div>
+            </div>
+            <div>
+                <a class="homepage-link" asp-controller="Upload" asp-action="Send">
+                    <h3 class="text-right">@homeUploadLink</h3>
+                </a>
+                <div class="link-description">@homeUploadDescription</div>
+            </div>
+        </div>
+
+        <div class="image-wrapper middle-column">
+            <img class="home-illustation"src="homeIllustration.svg">
+        </div>
+
+        <div class="right-column">
+            <br />
+            <br />
+            <br />
+            <div>
+                <a class="homepage-link" asp-controller="Qrcode" asp-action="Generate">
+                    <h3 class="text-left">@homeQrLink</h3>
+                </a>
+                <div class="link-description">@homeQrDescription</div>
+            </div>
+            <div>
+                <a class="homepage-link" asp-controller="Document" asp-action="@docReqAction">
+                    <h3 class="text-left">@homeRequestQr</h3>
+                </a>
+                <div class="link-description">@homeRequestDescription</div>
+            </div>
+        </div>
+    </div>
 </div>

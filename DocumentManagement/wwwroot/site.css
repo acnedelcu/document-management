@@ -1,36 +1,87 @@
 ﻿body {
 }
 
-nav.navbar.navbar-default {
+.nav {
     background-color: rebeccapurple;
 }
 
-/*Wrapper div for the image on the homepage*/
-.home-image-wrapper {
-    text-align: center;
+
+/*The logout button on the navbar*/
+#logout {
+    border: none;
+    background-color: transparent;
 }
 
-/*Hompage ilustration*/
-.home-ilustration {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 900px;
+/*Forms*/
+form {
+    padding-left: 20px;
+    margin-bottom: 20px;
 }
 
 /*Navbar items for login*/
 .nav-link text-black {
-    margin-left:auto;
+    margin-top: 0px;
+    margin-left: auto;
 }
 
-/*The logout button on the navbar*/
-#logout{
-    border:none;
-    background-color:transparent;
+
+/*Homepage*/
+.homepage-title {
+    text-align: center;
+    font-weight: 200;
+    font-size: 30px;
+    font-family: Tahoma;
+    margin-top: 30px;
+    color: #54504F;
 }
 
-/*Forms*/
-form{
-    padding-left: 20px;
-    margin-top:20px;
-    margin-bottom:20px;
+.homepage-subtitle {
+    text-align: center;
+    font-weight: 100;
+    font-size: 22px;
+    font-family: Tahoma;
+    margin-top: 15px;
+    color: #54504F;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.image-wrapper {
+    text-align: center;
+}
+
+.home-illustation {
+    max-width: 500px;
+}
+
+.left-column {
+    text-align: right;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.right-column {
+    text-align: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.homepage-link {
+    text-decoration: none;
+    font-family: Tahoma;
+    font-size: 25px;
+    color: black;
+}
+
+homepage-link:hover {
+    color: blue;
+}
+
+.link-description {
+    margin-bottom: 10px;
+    color: #54504F;
 }
