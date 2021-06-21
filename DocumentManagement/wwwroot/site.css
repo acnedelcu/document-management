@@ -5,18 +5,32 @@ nav.navbar.navbar-default {
     background-color: rebeccapurple;
 }
 
+/*Wrapper div for the image on the homepage*/
 .home-image-wrapper {
     text-align: center;
 }
+
+/*Hompage ilustration*/
 .home-ilustration {
     margin-left: auto;
     margin-right: auto;
     max-width: 900px;
 }
+
+/*Navbar items for login*/
 .nav-link text-black {
     margin-left:auto;
 }
+
+/*The logout button on the navbar*/
 #logout{
     border:none;
     background-color:transparent;
+}
+
+/*Forms*/
+form{
+    padding-left: 20px;
+    margin-top:20px;
+    margin-bottom:20px;
 }
