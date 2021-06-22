@@ -4,9 +4,10 @@
 @{
     ViewData["Title"] = "Autentificare";
     string forgotYourPwd = "Mi-am uitat parola";
-    string register = "Nu ai cont? Înregistrare";
+    string register = "Nu ai un cont? Înregistrează-te";
     string loginText = "Autentificare AzureDocs";
     string passwordLabel = "Parolă";
+    string rememberMe = "Păstrează-mă conectat";
 }
 
 <h3 class="login-text">@loginText</h3>
@@ -34,7 +35,7 @@
                     <div class="checkbox">
                         <label asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            @rememberMe
                         </label>
                     </div>
                 </div>
