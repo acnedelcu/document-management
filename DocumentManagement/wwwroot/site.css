@@ -38,7 +38,7 @@ form {
 .homepage-subtitle {
     text-align: center;
     font-weight: 100;
-    font-size: 22px;
+    font-size: 18px;
     font-family: Tahoma;
     margin-top: 15px;
     color: #54504F;
@@ -111,3 +111,25 @@ img.login-illustration{
     max-width:300px;
     text-align:center;
 }
+
+/*Generic components*/
+.page-main-description {
+    text-align: center;
+    font-weight: 200;
+    font-size: 30px;
+    font-family: Tahoma;
+    margin-top: 30px;
+    color: #54504F;
+}
+#dataGridContainer {
+    padding: 1em 1em 1em 1em;
+}
+/*File requests*/
+#file-requests-tile {
+    margin-bottom: 20px;
+}
+ /*Footer*/
+ footer{
+     margin-top:20px;
+     color:white;
+ }

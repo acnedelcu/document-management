@@ -1,6 +1,10 @@
 ﻿@model UploadViewModel
 
+@{ 
+    string mainPageDescription = "Încărcați fișiere";
+}
 
+<div class="page-main-description">@mainPageDescription</div>
 <form method="post" enctype="multipart/form-data" asp-controller="Upload" asp-action="Send">
     <div asp-validation-summary="All" class="text-danger"></div>
 

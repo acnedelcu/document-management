@@ -6,19 +6,18 @@
     string LastNameCaption = "Nume";
     string DadNameInitialCaption = "Initiala tatalui";
     string FirstNameCaption = "Prenume";
+    string mainPageDescription = "Lista cererilor de documente active";
 
 }
-<div>
-    File requests for admins as table
-</div>
-
-
-@(Html.DevExtreme().DataGrid()
+<div id="file-requests-tile" class="page-main-description">@mainPageDescription</div>
+<div id="dataGridContainer">
+    @(Html.DevExtreme().DataGrid()
     .ID("FileRequests")
     .ShowBorders(true)
     .ShowRowLines(true)
     .HoverStateEnabled(true)
     .AllowColumnResizing(true)
+    .Sorting(sorting => sorting.Mode(GridSortingMode.None))
     .DataSource(Model.FileRequests)
     .Columns(columns =>
     {
@@ -41,3 +40,4 @@
         </text>
     )
 )
+</div>

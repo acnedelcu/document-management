@@ -1,9 +1,11 @@
 ﻿@model GenerateViewModel
 
 @{
-    string generateQrButtonText = "Generati QR";
+    string mainPageDescription = "Generare de coduri QR";
+    string generateQrButtonText = "Generați QR";
 }
 
+<div class="page-main-description">@mainPageDescription</div>
 @if (Context.User.IsInRole("User"))
 {
     <div>

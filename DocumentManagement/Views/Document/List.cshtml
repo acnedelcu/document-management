@@ -2,10 +2,11 @@
 
 @{
     string fileHeaderName = "Fisiere";
+    string mainPageDescription = "Lista documentelor disponibile";
 }
 
-<h1>Documentele dvs.</h1>
-<div id="dataGridContainer" style="padding: 1em 1em 1em 1em">
+<div class="page-main-description">@mainPageDescription</div>
+<div id="dataGridContainer">
     @(Html.DevExtreme().DataGrid()
             .ID("dataGrid")
             .ShowBorders(true)
