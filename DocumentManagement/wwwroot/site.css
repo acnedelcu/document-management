@@ -85,3 +85,29 @@ homepage-link:hover {
     margin-bottom: 10px;
     color: #54504F;
 }
+
+/*Login, register*/
+.col-md-3.login-container {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #d9dbde;
+    justify-content: center;
+    border-radius: 10px;
+}
+#account{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.login-text {
+    text-align: center;
+    font-weight: 200;
+    font-size: 30px;
+    font-family: Tahoma;
+    margin-top: 30px;
+    color: #54504F;
+}
+
+img.login-illustration{
+    max-width:300px;
+    text-align:center;
+}
