@@ -42,7 +42,7 @@
             ",application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, .ppt, .pptx" +
             ",text/plain, .txt, application/pdf")
         .SelectButtonText("Alegeti fisier").UploadButtonText("Incarcati fisier")
-        .Multiple(true)
+        .Multiple(false)
         .UploadMode(FileUploadMode.UseForm)
         .UploadUrl(Url.Action("SendFiles","Upload")))
 
