@@ -98,6 +98,7 @@ homepage-link:hover {
     margin-top:20px;
     margin-bottom:20px;
 }
+
 .login-text {
     text-align: center;
     font-weight: 200;
@@ -112,6 +113,20 @@ img.login-illustration{
     text-align:center;
 }
 
+img.register-illustration-left{
+    max-width:300px;
+    text-align:left;
+    margin-top: 600px;
+    padding-left:20px;
+}
+
+img.register-illustration-right{
+    max-width:300px;
+    text-align:right;
+    margin-top:150px;
+    padding-right:20px;
+}
+
 /*Generic components*/
 .page-main-description {
     text-align: center;
@@ -121,18 +136,27 @@ img.login-illustration{
     margin-top: 30px;
     color: #54504F;
 }
+
 #dataGridContainer {
     padding: 1em 1em 1em 1em;
 }
+
+.form-center{
+    margin-left:auto;
+    margin-right:auto;
+}
+
 /*File requests*/
 #file-requests-tile {
     margin-bottom: 20px;
 }
+
  /*Footer*/
  footer{
      margin-top:20px;
      color:white;
  }
+
  /*Qr codes*/
 .generate-qr-btn-wrapper{
     margin-left:20px;
