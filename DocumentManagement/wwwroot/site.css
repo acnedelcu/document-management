@@ -133,3 +133,7 @@ img.login-illustration{
      margin-top:20px;
      color:white;
  }
+ /*Qr codes*/
+.generate-qr-btn-wrapper{
+    margin-left:20px;
+}
