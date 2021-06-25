@@ -1,6 +1,10 @@
 ﻿@model UploadViewModel
 
+@{ 
+    string mainPageDescription = "Încărcați fișiere";
+}
 
+<div class="page-main-description">@mainPageDescription</div>
 <form method="post" enctype="multipart/form-data" asp-controller="Upload" asp-action="Send">
     <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -38,7 +42,7 @@
             ",application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, .ppt, .pptx" +
             ",text/plain, .txt, application/pdf")
         .SelectButtonText("Alegeti fisier").UploadButtonText("Incarcati fisier")
-        .Multiple(true)
+        .Multiple(false)
         .UploadMode(FileUploadMode.UseForm)
         .UploadUrl(Url.Action("SendFiles","Upload")))
 

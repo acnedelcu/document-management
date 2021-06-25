@@ -17,7 +17,7 @@ namespace DocumentManagement.Controllers
     public class QrcodeController : Controller
     {
         private static readonly string GeneratedQrFileName = "AccountQrCode.bmp";
-        private static readonly string DocumentsListUrl = "Document/List";
+        private static readonly string DocumentsListUrl = "https://localhost:44323/Document/List";
 
         private readonly IApplicationUserRepository applicationUserRepository;
         private readonly IGroupRepository groupRepository;
@@ -63,7 +63,7 @@ namespace DocumentManagement.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
-        [HttpPost]
+        [Authorize(Roles = "User")]
         public IActionResult DownloadQr(GenerateViewModel viewModel)
         {
             byte[] qrCode;
@@ -93,6 +93,7 @@ namespace DocumentManagement.Controllers
         /// </summary>
         /// <param name="viewModel"></param>
         /// <returns></returns>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult DownloadArchiveQr(ListViewModel viewModel)
         {

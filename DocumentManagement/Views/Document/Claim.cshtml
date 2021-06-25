@@ -1,6 +1,9 @@
 ﻿@model ClaimViewModel
-<h1> Claim Page</h1>
+@{ 
+    string mainPageDescription = "Înregistrați o cerere de eliberare documente";
+}
 
+<div class="page-main-description">@mainPageDescription</div>
 <form method="post" enctype="multipart/form-data" asp-controller="Document" asp-action="Claim">
     <div asp-validation-summary="All" class="text-danger"></div>
 

@@ -1,16 +1,21 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Înregistrare";
+    string privacyPolicyCheckText = "Sunt de acord cu politica de confidențialitate";
+    string registerButtonText = "Înregistrare";
+    string mainPageDescription = "Înregistrare AzureDocs";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="page-main-description">@mainPageDescription</div>
+<hr />
 
 <div class="row">
-    <div class="col-md-4">
+    <div>
+        <img src="~/registerIllustrHumans.svg" class="register-illustration-left" />
+    </div>
+    <div class="col-md-4 form-center">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <div class="form-group">
@@ -39,9 +44,6 @@
                 <span asp-validation-for="Input.SocialSecurityNumber" class="text-danger"></span>
             </div>
 
-
-
-
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
@@ -59,10 +61,13 @@
             </div>
             <div class="form-group">
                 <input type="checkbox" id="gdpr-check" />
-                <label for="vehicle1"> Sunt de acord cu politica de confidentialitate</label>
+                <label for="vehicle1">@privacyPolicyCheckText</label>
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">@registerButtonText</button>
         </form>
+    </div>
+    <div>
+        <img src="~/registerIllustration.svg" class="register-illustration-right" />
     </div>
 </div>
 

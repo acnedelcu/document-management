@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace DocumentManagement.Controllers
 {
+    [Authorize]
     public class UploadController : Controller
     {
         private readonly IGroupRepository groupRepository;
@@ -32,14 +33,26 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize(Roles = "Admin, User")]
         public ViewResult Send(int id)
         {
             if (id == -1 || id==0)
             {
-                var uploadViewModel = new UploadViewModel
-                { Groups = this.groupRepository.AllGroups, StudyPrograms = this.studyProgramRepository.AllStudyPrograms,
-                ApplicationUsers = this.applicationUserRepository.AllApplicationUsers};
+                var uploadViewModel = new UploadViewModel();
+                if (User.IsInRole("Admin"))
+                {
+                    uploadViewModel.Groups = this.groupRepository.AllGroups;
+                    uploadViewModel.StudyPrograms = this.studyProgramRepository.AllStudyPrograms;
+                    uploadViewModel.ApplicationUsers = this.applicationUserRepository.AllApplicationUsers;
+                }
+                else
+                {
+                    uploadViewModel.Groups = this.groupRepository.AllGroups; //TODO modify
+                    uploadViewModel.StudyPrograms = this.studyProgramRepository.AllStudyPrograms; //TODO modify
+                    //make only the username of the current logged available in the list if the role is user
+                    ApplicationUser applicationUser = this.applicationUserRepository.GetUserWithUsername(User.Identity.Name);
+                    uploadViewModel.ApplicationUsers = new List<ApplicationUser> { applicationUser };
+                }
                 return View(uploadViewModel);
             }
             else
@@ -56,7 +69,7 @@ namespace DocumentManagement.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize(Roles ="Admin, User")]
         public async Task<ActionResult> Send(UploadViewModel uploadViewModel)
         {
             //retrieving the data submitted
