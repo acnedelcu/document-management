@@ -1,11 +1,6 @@
 ﻿body {
 }
 
-.nav {
-    background-color: rebeccapurple;
-}
-
-
 /*The logout button on the navbar*/
 #logout {
     border: none;
