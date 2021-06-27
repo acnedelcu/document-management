@@ -1,0 +1,21 @@
+﻿
+<form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="ImportUser">
+
+    <div class="form-group">
+        @(Html.DevExtreme().FileUploader()
+        .ID("file-uploader")
+        .Name("File")
+        .Accept("application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xls, .xlsx")
+        .SelectButtonText("Alegeți fisier").UploadButtonText("Incarcați fișier")
+        .Multiple(false)
+        .UploadMode(FileUploadMode.UseForm)
+        .UploadUrl(Url.Action("ImportUser","Upload")))
+
+        @(Html.DevExtreme().Button()
+        .ID("button")
+        .Text("Încarcă documente")
+        .Type(ButtonType.Success)
+        .UseSubmitBehavior(true)
+    )
+    </div>
+</form>

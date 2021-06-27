@@ -91,7 +91,7 @@ namespace DocumentManagement
 
             using (ExcelPackage package = new ExcelPackage(fileToRead))
             {
-                ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; //get the first worksheet
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault(); //get the first worksheet
                 int colCount = worksheet.Dimension.End.Column;  //get nr of columns
                 int rowCount = worksheet.Dimension.End.Row;     //get nr of rows
 
