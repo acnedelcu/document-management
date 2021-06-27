@@ -13,14 +13,18 @@
     string homeRequestQr = "Cereri documente";
     string homeRequestDescription = "Cereri de eliberare a documentelor";
 
-    string docReqAction;
+    string docReqAction, docListAction, docListController;
     if(User.IsInRole("User"))
     {
         docReqAction = "Claim";
+        docListAction = "List";
+        docListController = "Document";
     }
     else
     {
         docReqAction = "FileRequests";
+        docListAction = "SelectUser";
+        docListController = "User";
     }
 }
 
@@ -34,7 +38,7 @@
             <br />
             <br />
             <div>
-                <a class="homepage-link" asp-controller="Document" asp-action="List">
+                <a class="homepage-link" asp-controller=@docListController asp-action=@docListAction>
                     <h3 class="text-right">@homeDocumentsLink</h3>
                 </a>
                 <div class="link-description">@documentsDescription</div>

@@ -1,12 +1,15 @@
 ﻿@model GenerateViewModel
+@{
+    string mainPageDescription = "Accesați documentele utilizatorilor!";
+}
 
+<div class="page-main-description">@mainPageDescription</div>
 <form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="RedirectToList">
-    <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group">
         <label asp-for="LastName" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            @(Html.DevExtreme().SelectBox().Name("LastName").DataSource(Model.ApplicationUsers.Select(au => au.LastName)).Placeholder("Alegeti nume").ShowClearButton(true))
+            @(Html.DevExtreme().SelectBox().Name("LastName").DataSource(Model.ApplicationUsers.Select(au => au.LastName)).Placeholder("Alegeți nume").ShowClearButton(true))
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
@@ -14,7 +17,7 @@
     <div class="form-group">
         <label asp-for="DadNameInitial" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            @(Html.DevExtreme().SelectBox().Name("DadInitial").DataSource(Model.ApplicationUsers.Select(au => au.DadFirstNameInitial)).Placeholder("Initiala tatalui").ShowClearButton(true))
+            @(Html.DevExtreme().SelectBox().Name("DadInitial").DataSource(Model.ApplicationUsers.Select(au => au.DadFirstNameInitial)).Placeholder("Inițiala tatălui").ShowClearButton(true))
             <span asp-validation-for="DadNameInitial" class="text-danger"></span>
         </div>
     </div>
@@ -22,7 +25,7 @@
     <div class="form-group">
         <label asp-for="FirstName" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            @(Html.DevExtreme().SelectBox().Name("FirstName").DataSource(Model.ApplicationUsers.Select(au => au.FirstName)).Placeholder("Alegeti prenume").ShowClearButton(true))
+            @(Html.DevExtreme().SelectBox().Name("FirstName").DataSource(Model.ApplicationUsers.Select(au => au.FirstName)).Placeholder("Alegeți prenume").ShowClearButton(true))
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
     </div>
@@ -30,7 +33,7 @@
     <div class="form-group">
         <label asp-for="Group" class="col-md-2 control-label"></label>
         <div class="col-md-5">
-            @(Html.DevExtreme().SelectBox().Name("Group").DataSource(Model.Groups.Select(gr => gr.GroupName)).Placeholder("Alegeti grupa").ShowClearButton(true))
+            @(Html.DevExtreme().SelectBox().Name("Group").DataSource(Model.Groups.Select(gr => gr.GroupName)).Placeholder("Alegeți grupa").ShowClearButton(true))
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
     </div>
@@ -38,7 +41,7 @@
     <div class="form-group">
         @(Html.DevExtreme().Button()
             .ID("button")
-            .Text("Accesati documentele")
+            .Text("Accesați documentele")
             .Type(ButtonType.Success)
             .UseSubmitBehavior(true)
             )
