@@ -5,14 +5,21 @@
                 <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fa fa-fw fa-home"></i>Acasă</a>
             </li>
 
-            <li class="nav-item active">
-                <a class="nav-link" asp-controller="Document" asp-action="List"><i class="fa fa-folder-open"></i>Documente disponibile</a>
-            </li>
-
             @if (User.IsInRole("User"))
             {
                 <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Document" asp-action="List"><i class="fa fa-folder-open"></i>Documente disponibile</a>
+                </li>
+
+                <li class="nav-item active">
                     <a class="nav-link active" asp-controller="Document" asp-action="Claim"><i class="fa fa-file-alt"></i>Solicită</a>
+                </li>
+            }
+
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="User" asp-action="SelectUser"><i class="fa fa-folder-open"></i>Documente utilizatori</a>
                 </li>
             }
 
@@ -25,11 +32,15 @@
             </li>
 
             @if (User.IsInRole("Admin"))
-             {
+            {
                 <li class="nav-item active">
                     <a class="nav-link active" asp-controller="Document" asp-action="FileRequests"><i class="fas fa-file-upload"></i>Cereri</a>
                 </li>
-             }
+
+                <li class="nav-item active">
+                    <a class="nav-link active" asp-controller="User" asp-action="Import"><i class="fas fa-file-upload"></i>Import utilizatori</a>
+                </li>
+            }
 
             <partial name="_LoginPartial" />
         </ul>

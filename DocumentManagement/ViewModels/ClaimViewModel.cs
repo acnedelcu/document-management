@@ -11,7 +11,7 @@ namespace DocumentManagement.ViewModels
         private const string errorMessage = "Camp obligatoriu";
         public ClaimViewModel()
         {
-            ListDocType = new List<string> { "Adeverinta student", "Foaie matricola" };
+            ListDocType = new List<string> { "Adeverință student", "Foaie matricolă", "Copie act studii", "Altul"  };
         }
 
         public static List<string> ListDocType { get; set; }

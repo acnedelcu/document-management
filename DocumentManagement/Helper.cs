@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Models;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -73,6 +74,51 @@ namespace DocumentManagement
             Bitmap resultedQrCode = new Bitmap(writer.Write(url));
 
             return resultedQrCode;
+        }
+
+        /// <summary>
+        /// Reads user information from an Excel file and returns a list of ApplicationUser
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static List<ApplicationUser> ReadExcelData(string filePath)
+        {
+            
+            FileInfo fileToRead = new FileInfo(filePath);
+            List<ApplicationUser> applicationUsers = new List<ApplicationUser>();
+
+            ExcelPackage.LicenseContext = LicenseContext.Commercial;
+
+            using (ExcelPackage package = new ExcelPackage(fileToRead))
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.FirstOrDefault(); //get the first worksheet
+                int colCount = worksheet.Dimension.End.Column;  //get nr of columns
+                int rowCount = worksheet.Dimension.End.Row;     //get nr of rows
+
+                for (int row = 2; row <= rowCount; row++)
+                {
+                    string lastName = worksheet.Cells[row, 1].Value?.ToString();
+                    string dadNameInitial = worksheet.Cells[row, 2].Value?.ToString();
+                    string firstName = worksheet.Cells[row, 3].Value?.ToString();
+                    string enrollmentNumber = worksheet.Cells[row, 4].Value?.ToString();
+                    string userName = worksheet.Cells[row, 5].Value?.ToString();
+                    string email = userName;
+
+                    applicationUsers.Add(new ApplicationUser
+                    {
+                        LastName = lastName,
+                        DadFirstNameInitial = dadNameInitial,
+                        FirstName = firstName,
+                        EnrollmentNumber = enrollmentNumber,
+                        UserName = userName,
+                        Email = email
+                    });
+                    System.Diagnostics.Debug.WriteLine(applicationUsers);
+                }
+            }
+
+            return applicationUsers;
+
         }
     }
 }

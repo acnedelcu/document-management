@@ -34,14 +34,9 @@
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Birthdate"></label>
-                <input asp-for="Input.Birthdate" class="form-control" />
-                <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.SocialSecurityNumber"></label>
-                <input asp-for="Input.SocialSecurityNumber" class="form-control" />
-                <span asp-validation-for="Input.SocialSecurityNumber" class="text-danger"></span>
+                <label asp-for="Input.EnrollmentNumber"></label>
+                <input asp-for="Input.EnrollmentNumber" class="form-control" />
+                <span asp-validation-for="Input.EnrollmentNumber" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -60,8 +55,9 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="gdpr-check" />
+                <input asp-for="Input.GdprAgreed" type="checkbox" id="gdpr-check" />
                 <label for="vehicle1">@privacyPolicyCheckText</label>
+                <span asp-validation-for="Input.GdprAgreed" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">@registerButtonText</button>
         </form>

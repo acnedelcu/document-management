@@ -5,6 +5,12 @@
     string mainPageDescription = "Lista documentelor disponibile";
 }
 
+<form id="myform" method="post" enctype="multipart/form-data" asp-controller="Document" asp-action="Open">
+    @Html.AntiForgeryToken()
+    <input id="SelectedFileName" asp-for="SelectedFileName" type="hidden" />
+    <input id="Username" asp-for="Username" value="@Model.ApplicationUser.UserName" type="hidden" />
+</form>
+
 <div class="page-main-description">@mainPageDescription</div>
 <div id="dataGridContainer">
     @(Html.DevExtreme().DataGrid()
@@ -13,6 +19,7 @@
             .ShowRowLines(true)
             .RowAlternationEnabled(false)
             .HoverStateEnabled(true)
+            .Sorting(sorting => sorting.Mode(GridSortingMode.None))
             .DataSource(Model.BlobNames)
             .Columns(columns =>
             {
@@ -22,21 +29,13 @@
             .OnSelectionChanged(@<text>
                 <script>
                     function(row) {
-                        var linie = row.selectedRowsData[0].BlobName;
-                        $.ajax({
-                            type: 'POST',
-                            url: '@Url.Action("Open","Document")',
-                            data: { selectedFileName: linie},
-                            success: function (url) {
-                                window.open(url, "_self");
-                            },
-                            error: function (req, status, error) {
-                                console.log("fail");
-                            },
-                            traditional: true
-                        })
+                        var line = row.selectedRowsData[0].BlobName;
+                        theForm = document.getElementById("myform");
+                        document.getElementById("SelectedFileName").value = line
+                        console.log(theForm);
+                        theForm.submit();
                     }
                 </script>
-    </text>)
+                </text>)
         )
 </div>
