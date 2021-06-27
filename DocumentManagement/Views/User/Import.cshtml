@@ -10,7 +10,7 @@
         @(Html.DevExtreme().FileUploader()
         .ID("file-uploader")
         .Name("File")
-        .Accept("application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xls, .xlsx")
+        .Accept("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .xlsx")
         .SelectButtonText("Alegeți fisier").UploadButtonText("Incarcați fișier")
         .Multiple(false)
         .UploadMode(FileUploadMode.UseForm)
@@ -18,7 +18,7 @@
 
         @(Html.DevExtreme().Button()
         .ID("button")
-        .Text("Încarcă documente")
+        .Text("Import utilizatori")
         .Type(ButtonType.Success)
         .UseSubmitBehavior(true)
     )
