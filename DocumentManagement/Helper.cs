@@ -1,4 +1,6 @@
-﻿using DocumentManagement.Models;
+﻿using DocumentManagement.BlobStorage;
+using DocumentManagement.Models;
+using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -81,7 +83,7 @@ namespace DocumentManagement
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static List<ApplicationUser> ReadExcelData(string filePath)
+        public static async Task<List<ApplicationUser>> ReadExcelDataAsync(string filePath, IConfiguration configuration)
         {
             
             FileInfo fileToRead = new FileInfo(filePath);
@@ -111,9 +113,16 @@ namespace DocumentManagement
                         FirstName = firstName,
                         EnrollmentNumber = enrollmentNumber,
                         UserName = userName,
-                        Email = email
+                        Email = email,
+                        ContainerGuid = Guid.NewGuid().ToString()
                     });
-                    System.Diagnostics.Debug.WriteLine(applicationUsers);
+                }
+                
+                //create containers for the users
+                foreach(var appUser in applicationUsers)
+                {
+                    FileHandler fileHandler = new FileHandler(configuration);
+                    await fileHandler.CreateContainer(appUser);
                 }
             }
 

@@ -40,6 +40,7 @@ namespace DocumentManagement.Controllers
             {
                 applicationUser = applicationUserRepository.GetUserWithUsername(Username);
             }
+            listViewModel.ApplicationUser = applicationUser;
 
             List<string> fileNames = new List<string>();
 
@@ -48,7 +49,6 @@ namespace DocumentManagement.Controllers
             foreach(var file in fileNames)
             {
                 listViewModel.BlobNames.Add(new DatagridFileWrapper { BlobName = file });
-                listViewModel.ApplicationUser = applicationUser;
             }
             return View(listViewModel);
         }

@@ -9,6 +9,7 @@ using System.IO;
 using DocumentManagement.Models;
 using Microsoft.AspNetCore.Identity;
 using DocumentManagement.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace DocumentManagement.Controllers
 {
@@ -20,14 +21,16 @@ namespace DocumentManagement.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IApplicationUserRepository applicationUserRepository;
         private readonly IGroupRepository groupRepository;
+        private readonly IConfiguration configuration;
         private const string DefaultPassword = "P@rola123";
         #endregion
-        public UserController(IWebHostEnvironment webHostEnvironment, IApplicationUserRepository applicationUserRepository, IGroupRepository groupRepository, UserManager<ApplicationUser> userManager)
+        public UserController(IWebHostEnvironment webHostEnvironment, IApplicationUserRepository applicationUserRepository, IGroupRepository groupRepository, UserManager<ApplicationUser> userManager, IConfiguration configuration)
         {
             this.webHostEnvironment = webHostEnvironment;
             this.applicationUserRepository = applicationUserRepository;
             this.userManager = userManager;
             this.groupRepository = groupRepository;
+            this.configuration = configuration;
         }
 
         [HttpGet]
@@ -54,7 +57,7 @@ namespace DocumentManagement.Controllers
             }
 
             //read user info from the excel file
-            applicationUsers = Helper.ReadExcelData(@filePathWithFileName);
+            applicationUsers = await Helper.ReadExcelDataAsync(@filePathWithFileName, configuration);
             if(applicationUsers.Count!=0)
             {
                 foreach(var appUser in applicationUsers)
