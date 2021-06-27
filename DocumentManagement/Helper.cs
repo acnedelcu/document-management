@@ -109,6 +109,7 @@ namespace DocumentManagement
                         LastName = lastName,
                         DadFirstNameInitial = dadNameInitial,
                         FirstName = firstName,
+                        EnrollmentNumber = enrollmentNumber,
                         UserName = userName,
                         Email = email
                     });

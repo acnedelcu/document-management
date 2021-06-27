@@ -52,7 +52,11 @@ namespace DocumentManagement.Controllers
             {
                 foreach(var appUser in applicationUsers)
                 {
-                    await userManager.CreateAsync(appUser, DefaultPassword);
+                    var result = await userManager.CreateAsync(appUser, DefaultPassword);
+                    if(result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(appUser, "User");
+                    }
                 }
             }
 
