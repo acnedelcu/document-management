@@ -64,14 +64,8 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
             public string FirstName { get; set; }
 
             [Required]
-            [Display(Name = "Data nasterii")]
-            public DateTime Birthdate { get; set; }
-
-            [Required]
-            [Display(Name = "CNP")]
-            public string SocialSecurityNumber { get; set; }
-
-
+            [Display(Name = "Numar matricol")]
+            public string EnrollmentNumber { get; set; }
 
             [Required]
             [EmailAddress]
@@ -88,6 +82,9 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public bool GdprAgreed { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -103,7 +100,7 @@ namespace DocumentManagement.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {LastName = Input.FirstName, DadFirstNameInitial = Input.DadFirstNameInitial,
-                    FirstName = Input.FirstName, BirthDate = Input.Birthdate, SocialSecurityNumber = Input.SocialSecurityNumber,
+                    FirstName = Input.FirstName, EnrollmentNumber = Input.EnrollmentNumber,
                     UserName = Input.Email, Email = Input.Email, ContainerGuid = Guid.NewGuid().ToString()
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);

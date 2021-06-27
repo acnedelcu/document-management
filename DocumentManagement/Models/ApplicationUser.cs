@@ -14,9 +14,7 @@ namespace DocumentManagement.Models
 
         public string FirstName { get; set; }
 
-        public DateTime BirthDate { get; set; }
-
-        public string SocialSecurityNumber { get; set; }
+        public string EnrollmentNumber { get; set; }
 
         public string ContainerGuid { get; set; }
 
