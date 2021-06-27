@@ -8,19 +8,26 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using DocumentManagement.Models;
 using Microsoft.AspNetCore.Identity;
+using DocumentManagement.ViewModels;
 
 namespace DocumentManagement.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
+        #region constants and dependencies
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IApplicationUserRepository applicationUserRepository;
+        private readonly IGroupRepository groupRepository;
         private const string DefaultPassword = "P@rola123";
-        public UserController(IWebHostEnvironment webHostEnvironment, UserManager<ApplicationUser> userManager)
+        #endregion
+        public UserController(IWebHostEnvironment webHostEnvironment, IApplicationUserRepository applicationUserRepository, IGroupRepository groupRepository, UserManager<ApplicationUser> userManager)
         {
             this.webHostEnvironment = webHostEnvironment;
+            this.applicationUserRepository = applicationUserRepository;
             this.userManager = userManager;
+            this.groupRepository = groupRepository;
         }
 
         [HttpGet]
@@ -62,6 +69,26 @@ namespace DocumentManagement.Controllers
 
             System.IO.File.Delete(@filePathWithFileName);
             return View("Import");
+        }
+
+        [HttpGet]
+        public IActionResult SelectUser(GenerateViewModel generateViewModel)
+        {
+            
+            GenerateViewModel viewModel = new GenerateViewModel
+            {
+                ApplicationUsers = applicationUserRepository.AllApplicationUsers,
+                Groups = groupRepository.AllGroups
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult RedirectToList (GenerateViewModel generateViewModel)
+        {
+            ApplicationUser selectedUser = applicationUserRepository.GetUserByNames(generateViewModel.FirstName, generateViewModel.LastName).FirstOrDefault();
+            string selectedUserUsername = selectedUser.UserName;
+            return RedirectToAction("List", "Document", new { Username = selectedUserUsername});
         }
     }
 }

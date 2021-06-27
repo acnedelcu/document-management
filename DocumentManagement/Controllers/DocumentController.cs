@@ -27,11 +27,19 @@ namespace DocumentManagement.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin, User")]
-        public async Task<ViewResult> List()
+        public async Task<ViewResult> List(string Username)
         {
             FileHandler fileHandler = new FileHandler(configuration);
             ListViewModel listViewModel = new ListViewModel();
-            ApplicationUser applicationUser = applicationUserRepository.GetUserWithId(userManager.GetUserId(this.User));
+            ApplicationUser applicationUser;
+            if (String.IsNullOrEmpty(Username))
+            {
+                applicationUser = applicationUserRepository.GetUserWithId(userManager.GetUserId(this.User));
+            }
+            else
+            {
+                applicationUser = applicationUserRepository.GetUserWithUsername(Username);
+            }
 
             List<string> fileNames = new List<string>();
 
@@ -40,19 +48,21 @@ namespace DocumentManagement.Controllers
             foreach(var file in fileNames)
             {
                 listViewModel.BlobNames.Add(new DatagridFileWrapper { BlobName = file });
+                listViewModel.ApplicationUser = applicationUser;
             }
             return View(listViewModel);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin, User")]
-        public JsonResult Open(string selectedFileName)
+        public IActionResult Open(ListViewModel listViewModel)
         {
             FileHandler fileHandler = new FileHandler(configuration);
 
-            ApplicationUser applicationUser = applicationUserRepository.GetUserWithId(userManager.GetUserId(this.User));
+            ApplicationUser applicationUser = applicationUserRepository.GetUserWithUsername(listViewModel.Username);
+            string selectedFileName = listViewModel.SelectedFileName;
             string blobSasUrl = fileHandler.GenerateBlobSasUrl(applicationUser, selectedFileName);
-            return Json(blobSasUrl);
+            return Redirect(blobSasUrl);
         }
 
         [HttpGet]
