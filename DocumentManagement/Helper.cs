@@ -76,6 +76,11 @@ namespace DocumentManagement
             return resultedQrCode;
         }
 
+        /// <summary>
+        /// Reads user information from an Excel file and returns a list of ApplicationUser
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static List<ApplicationUser> ReadExcelData(string filePath)
         {
             
