@@ -1,4 +1,8 @@
 ﻿body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 /*The logout button on the navbar*/
@@ -147,10 +151,10 @@ img.register-illustration-right{
 }
 
  /*Footer*/
- footer{
-     margin-top:20px;
-     color:white;
- }
+footer {
+    margin-top: auto;
+    color:white;
+}
 
  /*Qr codes*/
 .generate-qr-btn-wrapper{
