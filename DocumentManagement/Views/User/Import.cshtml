@@ -1,5 +1,10 @@
-﻿
-<form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="ImportUser">
+﻿@{ 
+    string mainPageDescription = "Adaugați noi utilizatori aplicației AzureDocs";
+    string subtitle = "Încărcați un fișier Excel pentru a adauga noii utilizatori";
+}
+<div class="page-main-description">@mainPageDescription</div>
+<div class="homepage-subtitle">@subtitle</div>
+<form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="ImportUser" style="margin-top:50px;">
 
     <div class="form-group">
         @(Html.DevExtreme().FileUploader()
